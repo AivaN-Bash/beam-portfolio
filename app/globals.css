@@ -1,0 +1,281 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg: #0A0A0F;
+    --surface: #111118;
+    --surface-2: #16161F;
+    --border: #1E1E2E;
+    --border-2: #2A2A3E;
+    --accent: #6C63FF;
+    --accent-2: #F5A623;
+    --accent-dim: rgba(108, 99, 255, 0.12);
+    --text-primary: #F0F0FF;
+    --text-secondary: #8B8BA8;
+    --text-tertiary: #71718C;
+    --mono: #A78BFA;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 2px;
+}
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+.font-display {
+  font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+}
+
+.font-mono {
+  font-family: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeUp 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--fade-delay, 0ms);
+}
+
+/* ── HUD frame — signature corner-bracket motif ──
+   Pure background-image technique: 4 independent corner
+   brackets, no extra DOM nodes. Color driven by --hud-c,
+   which can be swapped instantly (default) or animated
+   smoothly where @property is supported. */
+@property --hud-c {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: #2A2A3E;
+}
+
+.hud-frame {
+  position: relative;
+  --hud-c: var(--border-2);
+  --hs: 10px;
+  --ht: 1.5px;
+  background-image:
+    linear-gradient(to right, var(--hud-c) var(--ht), transparent var(--ht)),
+    linear-gradient(to bottom, var(--hud-c) var(--ht), transparent var(--ht)),
+    linear-gradient(to left, var(--hud-c) var(--ht), transparent var(--ht)),
+    linear-gradient(to bottom, var(--hud-c) var(--ht), transparent var(--ht)),
+    linear-gradient(to left, var(--hud-c) var(--ht), transparent var(--ht)),
+    linear-gradient(to top, var(--hud-c) var(--ht), transparent var(--ht)),
+    linear-gradient(to right, var(--hud-c) var(--ht), transparent var(--ht)),
+    linear-gradient(to top, var(--hud-c) var(--ht), transparent var(--ht));
+  background-size:
+    var(--hs) var(--ht), var(--ht) var(--hs), var(--hs) var(--ht), var(--ht) var(--hs),
+    var(--hs) var(--ht), var(--ht) var(--hs), var(--hs) var(--ht), var(--ht) var(--hs);
+  background-position: top left, top left, top right, top right, bottom right, bottom right, bottom left, bottom left;
+  background-repeat: no-repeat;
+  transition: --hud-c 0.25s ease;
+}
+
+.hud-frame--active {
+  --hud-c: var(--accent);
+  --hs: 14px;
+}
+
+a.hud-frame:hover {
+  --hud-c: var(--accent);
+  --hs: 14px;
+}
+
+/* Grid-rows expand technique for hover-reveal detail layers */
+.hud-expand {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hud-expand.is-open {
+  grid-template-rows: 1fr;
+}
+
+.hud-expand > * {
+  min-height: 0;
+}
+
+/* ── Ghost numerals — oversized outline type used as a
+   secondary focal point behind content. Always
+   pointer-events:none and z-index:-1; pair with
+   `position: relative; isolation: isolate;` on the
+   containing element so it paints behind static content. */
+.ghost-num {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  user-select: none;
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--ghost-c, var(--border-2));
+  white-space: nowrap;
+  transition: -webkit-text-stroke-color 0.3s ease;
+}
+
+/* ── Scroll-driven reveal ──
+   Zero JavaScript: the browser's compositor drives this via
+   animation-timeline: view(), so each element fades/slides in
+   the moment it scrolls into the viewport. Falls back to fully
+   visible (no animation) on browsers without view-timeline
+   support — progressive enhancement, never broken content. */
+.reveal {
+  opacity: 1;
+}
+
+@supports (animation-timeline: view()) {
+  .reveal {
+    opacity: 0;
+    animation: reveal-up linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 35%;
+  }
+}
+
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Scroll progress spine ──
+   A 2px line along the left edge of the viewport that fills
+   top-to-bottom as the document scrolls. Pure compositor
+   animation (transform: scaleY), no scroll listeners. */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 100vh;
+  background: var(--accent-2);
+  transform: scaleY(0);
+  transform-origin: top;
+  z-index: 60;
+  pointer-events: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    animation: scroll-fill linear;
+    animation-timeline: scroll(root);
+  }
+}
+
+@keyframes scroll-fill {
+  to { transform: scaleY(1); }
+}
+
+/* ── Back to top ──
+   Fades in via scroll-driven opacity once the user has
+   scrolled past the hero; `href="#"` scroll-to-top needs
+   no JavaScript at all. */
+.back-to-top {
+  position: fixed;
+  right: clamp(16px, 4vw, 32px);
+  bottom: clamp(16px, 4vw, 32px);
+  z-index: 55;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 2px;
+  background: var(--surface);
+  opacity: 0;
+  pointer-events: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  .back-to-top {
+    animation: appear-on-scroll linear;
+    animation-timeline: scroll(root);
+    animation-range: 600px 900px;
+  }
+}
+
+@keyframes appear-on-scroll {
+  from { opacity: 0; pointer-events: none; }
+  to { opacity: 1; pointer-events: auto; }
+}
+
+/* ── Section divider ──
+   A horizon-line gradient instead of a hard rule, so
+   sections feel like one continuous surface rather than
+   stacked blocks. */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border) 15%, var(--border) 85%, transparent);
+}
+
+/* ── Reduced motion ──
+   Placed last so it wins the cascade for equal-specificity
+   declarations (opacity, transform, animation-name,
+   scroll-behavior) regardless of source order elsewhere. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+  .fade-in,
+  .reveal {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .scroll-progress {
+    display: none;
+  }
+  .back-to-top {
+    animation: none;
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
