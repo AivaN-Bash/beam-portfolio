@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Nav from "../../components/Nav";
+import SignalBars from "../../components/SignalBars";
 import { projects } from "../../data/portfolio";
 import type { Metadata } from "next";
 
@@ -38,9 +39,9 @@ export default async function WorkDetail({
     <main className="lg:pl-[72px]" style={{ minHeight: "100vh" }}>
       <Nav />
 
-      {/* ── TOP NAV ── */}
+      {/* ── SCENE 1: OPENING — breadcrumb + full-bleed title ── */}
       <div style={{ padding: "clamp(72px, 10vh, 96px) clamp(32px, 8vw, 120px) 0" }}>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between mb-12">
           <Link href="/work"
             className="inline-flex items-center gap-2 font-mono transition-colors hover:opacity-70"
             style={{ color: "var(--text-tertiary)", fontSize: "11px", letterSpacing: "0.06em" }}>
@@ -49,268 +50,273 @@ export default async function WorkDetail({
             </svg>
             All work
           </Link>
-          <span className="font-mono" style={{ color: "var(--text-tertiary)", fontSize: "10px" }}>
-            [{project.index} / {String(projects.length).padStart(2, "0")}]
+          <div className="flex items-center gap-4">
+            <SignalBars level={project.signal as 1 | 2 | 3} color={project.accent} />
+            <span className="font-mono" style={{ color: "var(--text-tertiary)", fontSize: "10px" }}>
+              [{project.index} / {String(projects.length).padStart(2, "0")}]
+            </span>
+          </div>
+        </div>
+
+        {/* Opening: full-width title — no sidebar competing for attention */}
+        <header style={{ position: "relative", isolation: "isolate", paddingBottom: "clamp(32px, 5vh, 56px)" }}>
+          <span className="ghost-num hidden md:block" aria-hidden="true" style={{
+            top: "-20px",
+            right: "0",
+            fontSize: "clamp(180px, 26vw, 360px)",
+            "--ghost-c": `${project.accent}20`,
+          } as React.CSSProperties}>
+            {project.index}
           </span>
+
+          {/* Status row — dense, small, compressed */}
+          <div className="flex items-center gap-3 mb-5">
+            <span className="font-mono px-2 py-0.5 rounded-sm"
+              style={{ color: project.accent, background: `${project.accent}15`, fontSize: "9px", letterSpacing: "0.06em" }}>
+              {project.status}
+            </span>
+            <span className="font-mono" style={{ color: "var(--text-tertiary)", fontSize: "10px" }}>
+              {project.category}
+            </span>
+            <span className="font-mono" style={{ color: "var(--text-tertiary)", fontSize: "10px" }}>· {project.year}</span>
+          </div>
+
+          {/* Title — takes the whole canvas */}
+          <h1 className="font-display font-bold leading-none mb-6"
+            style={{
+              fontSize: "clamp(56px, 11vw, 144px)",
+              letterSpacing: "-0.045em",
+              color: project.accent,
+              maxWidth: "900px",
+            }}>
+            {project.title}
+          </h1>
+
+          {/* Tagline below the title — reads as caption to the headline */}
+          <p className="font-display font-light"
+            style={{
+              fontSize: "clamp(16px, 2.2vw, 22px)",
+              color: "var(--text-secondary)",
+              maxWidth: "600px",
+              lineHeight: 1.55,
+            }}>
+            {project.tagline}
+          </p>
+        </header>
+      </div>
+
+      {/* ── SCENE 2: CONTEXT — compressed metadata bar ── */}
+      <div style={{
+        background: "var(--surface)",
+        borderTop: "1px solid var(--border)",
+        borderBottom: "1px solid var(--border)",
+        padding: "16px clamp(32px, 8vw, 120px)",
+      }}>
+        <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
+          <div>
+            <span className="font-mono block mb-1" style={{ color: "var(--text-tertiary)", fontSize: "8px", letterSpacing: "0.1em" }}>
+              STACK
+            </span>
+            <div className="flex flex-wrap gap-1.5">
+              {project.stack.map((tech) => (
+                <span key={tech} className="font-mono"
+                  style={{
+                    fontSize: "10px", padding: "2px 7px",
+                    border: "1px solid var(--border)",
+                    borderRadius: "2px", color: "var(--text-secondary)",
+                    background: "var(--bg)",
+                  }}>
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+          <div style={{ width: "1px", height: "32px", background: "var(--border)", flexShrink: 0 }} className="hidden md:block" />
+          <div>
+            <span className="font-mono block mb-1" style={{ color: "var(--text-tertiary)", fontSize: "8px", letterSpacing: "0.1em" }}>
+              OUTCOMES
+            </span>
+            <div className="flex flex-wrap gap-x-4 gap-y-1">
+              {project.metrics.map((m) => (
+                <span key={m} className="flex items-center gap-1.5 font-mono"
+                  style={{ fontSize: "10px", color: "var(--text-secondary)" }}>
+                  <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: project.accent }} />
+                  {m}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* ── PROJECT HEADER ── */}
-      <header style={{ position: "relative", isolation: "isolate", padding: "28px clamp(32px, 8vw, 120px) 0" }}>
-        <span className="ghost-num hidden md:block" aria-hidden="true" style={{
-          top: "0px",
-          right: "clamp(8px, 4vw, 280px)",
-          fontSize: "clamp(160px, 22vw, 320px)",
-          "--ghost-c": `${project.accent}30`,
-        } as React.CSSProperties}>
-          {project.index}
-        </span>
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-10 items-start">
-
-          {/* Left: title block */}
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <span className="font-mono px-1.5 py-0.5 rounded-sm"
-                style={{ color: project.accent, background: `${project.accent}15`, fontSize: "9px", letterSpacing: "0.05em" }}>
-                {project.status}
-              </span>
-              <span className="font-mono" style={{ color: "var(--text-tertiary)", fontSize: "10px" }}>
-                {project.category}
-              </span>
-              <span className="font-mono" style={{ color: "var(--text-tertiary)", fontSize: "10px" }}>
-                · {project.year}
-              </span>
-            </div>
-            <h1 className="font-display font-bold leading-none mb-4"
-              style={{
-                fontSize: "clamp(48px, 9vw, 120px)",
-                letterSpacing: "-0.045em",
-                color: project.accent,
-              }}>
-              {project.title}
-            </h1>
-            <p className="font-display font-light"
-              style={{
-                fontSize: "clamp(15px, 2vw, 19px)",
-                color: "var(--text-secondary)",
-                maxWidth: "520px",
-                lineHeight: 1.6,
-              }}>
-              {project.tagline}
+      {/* ── SCENE 3: THE PROBLEM — wide, open, single focus ── */}
+      <section style={{
+        padding: "clamp(48px, 7vh, 80px) clamp(32px, 8vw, 120px)",
+        borderBottom: "1px solid var(--border)",
+      }}>
+        <div className="grid grid-cols-1 lg:grid-cols-[180px_1fr] gap-8 lg:gap-16">
+          <div className="flex flex-col gap-2 lg:pt-2">
+            <h2 className="font-mono font-medium" style={{ color: project.accent, fontSize: "9px", letterSpacing: "0.1em" }}>
+              THE PROBLEM
+            </h2>
+            <p className="font-mono" style={{ color: "var(--text-tertiary)", fontSize: "9px" }}>
+              Scene 01 of 04
             </p>
           </div>
-
-          {/* Right: meta panel */}
-          <div className="hud-frame" style={{
-            border: "1px solid var(--border)",
-            background: "var(--surface)",
-            alignSelf: "start",
-            marginTop: "8px",
-            "--hud-c": project.accent,
-            "--hs": "14px",
-          } as React.CSSProperties}>
-            <div style={{ padding: "12px 16px", borderBottom: "1px solid var(--border)" }}>
-              <span className="font-mono block mb-2"
-                style={{ color: "var(--text-tertiary)", fontSize: "9px", letterSpacing: "0.08em" }}>
-                STACK
-              </span>
-              <div className="flex flex-wrap gap-1.5">
-                {project.stack.map((tech) => (
-                  <span key={tech} className="font-mono"
-                    style={{
-                      fontSize: "10px", padding: "2px 6px",
-                      border: "1px solid var(--border)",
-                      borderRadius: "2px", color: "var(--text-secondary)",
-                    }}>
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <div style={{ padding: "12px 16px" }}>
-              <span className="font-mono block mb-2"
-                style={{ color: "var(--text-tertiary)", fontSize: "9px", letterSpacing: "0.08em" }}>
-                OUTCOMES
-              </span>
-              <div className="space-y-1">
-                {project.metrics.map((m) => (
-                  <div key={m} className="flex items-center gap-2">
-                    <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ background: project.accent }} />
-                    <span className="font-mono" style={{ fontSize: "10px", color: "var(--text-secondary)" }}>
-                      {m}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </header>
-
-      {/* Divider */}
-      <div style={{ margin: "24px clamp(32px, 8vw, 120px)", borderTop: "1px solid var(--border)" }} />
-
-      {/* ── BODY ── */}
-      <article style={{ padding: "0 clamp(32px, 8vw, 120px)" }}>
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-10 items-start">
-
-          {/* Main narrative */}
           <div>
-
-            {/* Problem */}
-            <div className="mb-8 reveal">
-              <div className="flex items-center gap-3 mb-4">
-                <h2 className="font-mono"
-                  style={{ color: project.accent, fontSize: "9px", letterSpacing: "0.1em", fontWeight: 500 }}>
-                  THE PROBLEM
-                </h2>
-                <span style={{ flex: 1, height: "1px", background: "var(--border)", maxWidth: "48px" }} />
-              </div>
-              <p style={{ color: "var(--text-primary)", fontSize: "15px", lineHeight: 1.8 }}>
-                {project.problem}
-              </p>
-            </div>
-
-            {/* Solution */}
-            <div className="mb-8 reveal">
-              <div className="flex items-center gap-3 mb-4">
-                <h2 className="font-mono"
-                  style={{ color: project.accent, fontSize: "9px", letterSpacing: "0.1em", fontWeight: 500 }}>
-                  THE SOLUTION
-                </h2>
-                <span style={{ flex: 1, height: "1px", background: "var(--border)", maxWidth: "48px" }} />
-              </div>
-              <p style={{ color: "var(--text-primary)", fontSize: "15px", lineHeight: 1.8 }}>
-                {project.solution}
-              </p>
-            </div>
-
-            {/* Decisions */}
-            <div className="mb-8 reveal">
-              <div className="flex items-center gap-3 mb-4">
-                <h2 className="font-mono"
-                  style={{ color: project.accent, fontSize: "9px", letterSpacing: "0.1em", fontWeight: 500 }}>
-                  TECHNICAL DECISIONS
-                </h2>
-                <span style={{ flex: 1, height: "1px", background: "var(--border)", maxWidth: "48px" }} />
-              </div>
-              <div className="space-y-2">
-                {project.decisions.map((decision, i) => (
-                  <div key={i} className="flex items-start gap-3"
-                    style={{
-                      padding: "10px 14px",
-                      border: "1px solid var(--border)",
-                      borderLeft: `2px solid ${project.accent}`,
-                      background: "var(--surface)",
-                      borderRadius: "0 2px 2px 0",
-                    }}>
-                    <span className="font-mono flex-shrink-0 mt-px"
-                      style={{ color: project.accent, fontSize: "9px" }}>
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <p style={{ color: "var(--text-secondary)", fontSize: "13px", lineHeight: 1.65 }}>
-                      {decision}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Lessons learned */}
-            <div className="hud-frame" style={{
-              padding: "16px 20px",
-              border: "1px solid var(--border)",
-              background: "var(--surface)",
-              "--hud-c": project.accent,
-            } as React.CSSProperties}>
-              <div className="flex items-center gap-3 mb-3">
-                <h2 className="font-mono"
-                  style={{ color: project.accent, fontSize: "9px", letterSpacing: "0.1em", fontWeight: 500 }}>
-                  LESSONS LEARNED
-                </h2>
-                <span style={{ flex: 1, height: "1px", background: "var(--border)", maxWidth: "48px" }} />
-              </div>
-              <p className="font-display font-light" style={{ color: "var(--text-primary)", fontSize: "clamp(14px, 1.8vw, 16px)", lineHeight: 1.75 }}>
-                {project.lessons}
-              </p>
-            </div>
+            <p className="font-display font-light"
+              style={{
+                fontSize: "clamp(17px, 2.4vw, 24px)",
+                color: "var(--text-primary)",
+                lineHeight: 1.65,
+                maxWidth: "680px",
+              }}>
+              {project.problem}
+            </p>
           </div>
-
-          {/* Sticky sidebar — principles that apply */}
-          <div style={{ position: "sticky", top: "32px", alignSelf: "start" }}>
-            <div className="hud-frame" style={{
-              border: "1px solid var(--border)",
-              background: "var(--surface)",
-              "--hud-c": project.accent,
-            } as React.CSSProperties}>
-              <div style={{ padding: "12px 16px", borderBottom: "1px solid var(--border)" }}>
-                <span className="font-mono"
-                  style={{ color: "var(--text-tertiary)", fontSize: "9px", letterSpacing: "0.08em" }}>
-                  ENGINEERING NOTES
-                </span>
-              </div>
-              <div style={{ padding: "12px 16px" }}>
-                <div className="space-y-4">
-                  <div>
-                    <p className="font-mono mb-1"
-                      style={{ color: project.accent, fontSize: "9px", letterSpacing: "0.06em" }}>
-                      SECURITY POSTURE
-                    </p>
-                    <p style={{ color: "var(--text-secondary)", fontSize: "11px", lineHeight: 1.65 }}>
-                      Every sensitive operation uses timing-safe comparison. Auth surfaces are the first thing reviewed.
-                    </p>
-                  </div>
-                  <div>
-                    <p className="font-mono mb-1"
-                      style={{ color: project.accent, fontSize: "9px", letterSpacing: "0.06em" }}>
-                      API PHILOSOPHY
-                    </p>
-                    <p style={{ color: "var(--text-secondary)", fontSize: "11px", lineHeight: 1.65 }}>
-                      Endpoints are designed as contracts. Breaking changes require version bumps, always.
-                    </p>
-                  </div>
-                  <div>
-                    <p className="font-mono mb-1"
-                      style={{ color: project.accent, fontSize: "9px", letterSpacing: "0.06em" }}>
-                      OBSERVABILITY
-                    </p>
-                    <p style={{ color: "var(--text-secondary)", fontSize: "11px", lineHeight: 1.65 }}>
-                      Structured logs and correlation IDs from day one. Tracing is built in, not added on.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
-      </article>
+      </section>
 
-      {/* ── NEXT PROJECT ── */}
+      {/* ── SCENE 4: DEEP DIVE — compressed, dense, two-column ── */}
+      <section style={{
+        padding: "0 clamp(32px, 8vw, 120px)",
+        borderBottom: "1px solid var(--border)",
+      }}>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-0 lg:gap-12">
+
+          {/* Left: Solution + Decisions — dense */}
+          <div style={{ padding: "clamp(32px, 5vh, 56px) 0", borderRight: "1px solid var(--border)", paddingRight: "clamp(20px, 4vw, 56px)" }}>
+            <h2 className="font-mono font-medium mb-4" style={{ color: project.accent, fontSize: "9px", letterSpacing: "0.1em" }}>
+              THE SOLUTION
+            </h2>
+            <p style={{ color: "var(--text-primary)", fontSize: "15px", lineHeight: 1.8, marginBottom: "32px" }}>
+              {project.solution}
+            </p>
+
+            <h2 className="font-mono font-medium mb-4" style={{ color: project.accent, fontSize: "9px", letterSpacing: "0.1em" }}>
+              TECHNICAL DECISIONS
+            </h2>
+            <div className="space-y-2">
+              {project.decisions.map((decision, i) => (
+                <div key={i} className="flex items-start gap-3"
+                  style={{
+                    padding: "10px 14px",
+                    border: "1px solid var(--border)",
+                    borderLeft: `2px solid ${project.accent}`,
+                    background: "var(--bg)",
+                  }}>
+                  <span className="font-mono flex-shrink-0 mt-px" style={{ color: project.accent, fontSize: "9px" }}>
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <p style={{ color: "var(--text-secondary)", fontSize: "13px", lineHeight: 1.65 }}>
+                    {decision}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right: Engineering notes sidebar — persistent context */}
+          <div style={{ padding: "clamp(32px, 5vh, 56px) 0", paddingLeft: "clamp(20px, 4vw, 56px)" }} className="hidden lg:block">
+            <h2 className="font-mono font-medium mb-5" style={{ color: "var(--text-tertiary)", fontSize: "9px", letterSpacing: "0.08em" }}>
+              ENGINEERING NOTES
+            </h2>
+            <div className="space-y-6">
+              {[
+                {
+                  label: "SECURITY POSTURE",
+                  body: "Every sensitive operation uses timing-safe comparison. Auth surfaces are the first thing reviewed.",
+                },
+                {
+                  label: "API PHILOSOPHY",
+                  body: "Endpoints are designed as contracts. Breaking changes require version bumps, always.",
+                },
+                {
+                  label: "OBSERVABILITY",
+                  body: "Structured logs and correlation IDs from day one. Tracing is built in, not added on.",
+                },
+              ].map((note) => (
+                <div key={note.label}>
+                  <p className="font-mono mb-1.5" style={{ color: project.accent, fontSize: "9px", letterSpacing: "0.06em" }}>
+                    {note.label}
+                  </p>
+                  <p style={{ color: "var(--text-secondary)", fontSize: "11px", lineHeight: 1.7 }}>
+                    {note.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SCENE 5: REFLECTION — wide, sparse, high contrast ── */}
+      <section style={{
+        padding: "clamp(48px, 8vh, 96px) clamp(32px, 8vw, 120px)",
+        position: "relative",
+        isolation: "isolate",
+        borderBottom: "1px solid var(--border)",
+      }}>
+        <div className="grid grid-cols-1 lg:grid-cols-[180px_1fr] gap-8 lg:gap-16">
+          <div className="flex flex-col gap-2 lg:pt-2">
+            <h2 className="font-mono font-medium" style={{ color: "var(--accent-2)", fontSize: "9px", letterSpacing: "0.1em" }}>
+              LESSONS LEARNED
+            </h2>
+            <p className="font-mono" style={{ color: "var(--text-tertiary)", fontSize: "9px" }}>
+              Scene 04 of 04
+            </p>
+          </div>
+          <div>
+            <p className="font-display"
+              style={{
+                fontSize: "clamp(18px, 2.8vw, 28px)",
+                color: "var(--text-primary)",
+                lineHeight: 1.6,
+                fontWeight: 300,
+                maxWidth: "660px",
+              }}>
+              <span style={{ color: "var(--accent-2)" }}>&ldquo;</span>
+              {project.lessons}
+              <span style={{ color: "var(--accent-2)" }}>&rdquo;</span>
+            </p>
+            <div className="flex items-center gap-3 mt-8">
+              <span className="inline-block w-8 h-px" style={{ background: "var(--accent-2)" }} />
+              <span className="font-mono" style={{ color: "var(--accent-2)", fontSize: "10px", letterSpacing: "0.06em" }}>
+                $ impact — {project.impact}
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SCENE 6: TRANSITION — next project ── */}
       <div style={{
-        margin: "40px clamp(32px, 8vw, 120px) 0",
-        borderTop: "1px solid var(--border)",
-        padding: "28px 0 clamp(48px, 7vh, 72px)",
+        padding: "clamp(32px, 5vh, 48px) clamp(32px, 8vw, 120px)",
+        position: "relative",
+        isolation: "isolate",
       }}>
         <div className="flex items-center justify-between">
-          <span className="font-mono"
-            style={{ color: "var(--text-tertiary)", fontSize: "9px", letterSpacing: "0.08em" }}>
-            NEXT PROJECT [{next.index}]
-          </span>
-          <Link href={`/work/${next.slug}`} className="group hud-frame flex items-center gap-3"
-            style={{ padding: "8px 16px", "--hud-c": next.accent } as React.CSSProperties}>
-            <span className="font-display font-semibold transition-colors duration-200 group-hover:opacity-80"
+          <div>
+            <span className="font-mono block mb-1" style={{ color: "var(--text-tertiary)", fontSize: "9px", letterSpacing: "0.08em" }}>
+              NEXT PROJECT [{next.index}]
+            </span>
+            <span className="font-mono" style={{ color: "var(--text-tertiary)", fontSize: "9px" }}>
+              {next.category} · {next.year}
+            </span>
+          </div>
+          <Link href={`/work/${next.slug}`} className="group hud-frame flex items-center gap-4"
+            style={{ padding: "12px 20px", "--hud-c": next.accent } as React.CSSProperties}>
+            <span className="font-display font-bold transition-colors duration-200 group-hover:opacity-80"
               style={{
                 color: next.accent,
-                fontSize: "clamp(16px, 2.5vw, 24px)",
-                letterSpacing: "-0.025em",
+                fontSize: "clamp(20px, 3vw, 36px)",
+                letterSpacing: "-0.03em",
               }}>
               {next.title}
             </span>
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" focusable="false"
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false"
               className="transition-transform duration-200 group-hover:translate-x-1">
-              <path d="M3.5 14.5L14.5 3.5M14.5 3.5H7M14.5 3.5V11"
+              <path d="M4 16L16 4M16 4H8M16 4V12"
                 stroke={next.accent} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </Link>
