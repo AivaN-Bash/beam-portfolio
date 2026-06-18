@@ -302,6 +302,27 @@ export default function WorkPage() {
         </div>
       </div>
 
+      {/* ── TRANSITION ── */}
+      <div style={{ padding: "clamp(28px, 4vh, 44px) clamp(32px, 8vw, 120px) 0" }}>
+        <div className="flex items-center justify-between">
+          <span className="font-mono" style={{ color: "var(--text-tertiary)", fontSize: "9px", letterSpacing: "0.08em" }}>
+            CONTINUE
+          </span>
+          <Link href="/about" className="group hud-frame flex items-center gap-3"
+            style={{ padding: "10px 18px" }}>
+            <span className="font-display font-bold"
+              style={{ color: "var(--accent)", fontSize: "clamp(18px, 2.5vw, 28px)", letterSpacing: "-0.025em" }}>
+              How I think
+            </span>
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" focusable="false"
+              className="transition-transform duration-200 group-hover:translate-x-1">
+              <path d="M3.5 14.5L14.5 3.5M14.5 3.5H7M14.5 3.5V11"
+                stroke="#6C63FF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </Link>
+        </div>
+      </div>
+
       <div style={{ height: "clamp(24px, 4vh, 40px)" }} />
 
     </main>

@@ -92,10 +92,12 @@ export default function AboutPage() {
               lineHeight: 1.8,
               marginBottom: "20px",
             }}>
-              I&apos;m a Staff Software Engineer based in Bangkok. My work sits at the intersection of{" "}
+              &ldquo;Systems thinker&rdquo; isn&apos;t just a tagline — it&apos;s the default lens. Understand the whole
+              before touching a part. In practice, that means{" "}
               <span style={{ color: "var(--text-primary)", fontWeight: 500 }}>security engineering</span>,{" "}
               <span style={{ color: "var(--text-primary)", fontWeight: 500 }}>API design</span>, and{" "}
-              <span style={{ color: "var(--text-primary)", fontWeight: 500 }}>real-time infrastructure</span>.
+              <span style={{ color: "var(--text-primary)", fontWeight: 500 }}>real-time infrastructure</span>{" "}
+              — all at once, all the time.
             </p>
             <p style={{ color: "var(--text-secondary)", fontSize: "clamp(15px, 1.8vw, 18px)", lineHeight: 1.8, marginBottom: "20px" }}>
               I care about building systems that are trustworthy by construction — where security isn&apos;t bolted on,
@@ -308,9 +310,9 @@ export default function AboutPage() {
               </span>
             </div>
             <p style={{ color: "var(--text-secondary)", fontSize: "13px", lineHeight: 1.65 }}>
-              A season working guest services at Dollywood — wheelchairs, scooters, and guests from
-              dozens of countries — taught me more about communication and problem-solving under
-              pressure than any classroom did.
+              &ldquo;People-first&rdquo; up top isn&apos;t just a phrase — it traces back to a season at Dollywood:
+              wheelchairs, scooters, and guests from dozens of countries. More about communication
+              and problem-solving under pressure than any classroom taught.
             </p>
             <span className="inline-flex items-center gap-2 font-mono transition-colors duration-200 group-hover:opacity-70 flex-shrink-0"
               style={{ color: "var(--accent)", fontSize: "12px", letterSpacing: "0.02em" }}>

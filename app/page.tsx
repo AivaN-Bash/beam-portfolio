@@ -245,6 +245,16 @@ export default function Home() {
             </Link>
           </div>
 
+          <p className="font-display font-light reveal" style={{
+            fontSize: "clamp(14px, 1.6vw, 18px)",
+            color: "var(--text-secondary)",
+            maxWidth: "640px",
+            lineHeight: 1.6,
+            marginBottom: "32px",
+          }}>
+            Four systems, four different problems — same underlying approach to security, APIs, and reliability.
+          </p>
+
           <div>
             {projects.map((project) => {
               const isActive = hoveredProject === project.id;
@@ -403,6 +413,16 @@ export default function Home() {
               ENGINEERING PRINCIPLES
             </h2>
           </div>
+
+          <p className="font-display font-light reveal" style={{
+            fontSize: "clamp(14px, 1.6vw, 18px)",
+            color: "var(--text-secondary)",
+            maxWidth: "640px",
+            lineHeight: 1.6,
+            marginBottom: "32px",
+          }}>
+            None of the decisions above happened by accident. Four beliefs sit underneath all of it:
+          </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
             {[

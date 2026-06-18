@@ -189,7 +189,13 @@ export default async function WorkDetail({
             <h2 className="font-mono font-medium mb-4" style={{ color: project.accent, fontSize: "9px", letterSpacing: "0.1em" }}>
               THE SOLUTION
             </h2>
-            <p style={{ color: "var(--text-primary)", fontSize: "15px", lineHeight: 1.8, marginBottom: "32px" }}>
+            {/* Larger than Scene 3 problem — answer should feel bigger than the question */}
+            <p className="font-display font-light" style={{
+              color: "var(--text-primary)",
+              fontSize: "clamp(16px, 2vw, 20px)",
+              lineHeight: 1.75,
+              marginBottom: "32px",
+            }}>
               {project.solution}
             </p>
 
@@ -250,7 +256,7 @@ export default async function WorkDetail({
         </div>
       </section>
 
-      {/* ── SCENE 5: REFLECTION — wide, sparse, high contrast ── */}
+      {/* ── SCENE 5: REFLECTION — wide, sparse, impact first ── */}
       <section style={{
         padding: "clamp(48px, 8vh, 96px) clamp(32px, 8vw, 120px)",
         position: "relative",
@@ -260,31 +266,40 @@ export default async function WorkDetail({
         <div className="grid grid-cols-1 lg:grid-cols-[180px_1fr] gap-8 lg:gap-16">
           <div className="flex flex-col gap-2 lg:pt-2">
             <h2 className="font-mono font-medium" style={{ color: "var(--accent-2)", fontSize: "9px", letterSpacing: "0.1em" }}>
-              LESSONS LEARNED
+              IMPACT & LESSONS
             </h2>
             <p className="font-mono" style={{ color: "var(--text-tertiary)", fontSize: "9px" }}>
               Scene 04 of 04
             </p>
           </div>
           <div>
-            <p className="font-display"
-              style={{
-                fontSize: "clamp(18px, 2.8vw, 28px)",
-                color: "var(--text-primary)",
-                lineHeight: 1.6,
-                fontWeight: 300,
-                maxWidth: "660px",
-              }}>
-              <span style={{ color: "var(--accent-2)" }}>&ldquo;</span>
-              {project.lessons}
-              <span style={{ color: "var(--accent-2)" }}>&rdquo;</span>
-            </p>
-            <div className="flex items-center gap-3 mt-8">
-              <span className="inline-block w-8 h-px" style={{ background: "var(--accent-2)" }} />
-              <span className="font-mono" style={{ color: "var(--accent-2)", fontSize: "10px", letterSpacing: "0.06em" }}>
-                $ impact — {project.impact}
-              </span>
+            {/* Impact first — the most important sentence on the page */}
+            <div className="flex items-start gap-3 mb-6">
+              <span className="inline-block w-8 h-px flex-shrink-0 mt-3" style={{ background: "var(--accent-2)" }} />
+              <p className="font-display font-semibold"
+                style={{
+                  fontSize: "clamp(18px, 2.8vw, 30px)",
+                  color: "var(--accent-2)",
+                  lineHeight: 1.4,
+                  letterSpacing: "-0.02em",
+                  maxWidth: "640px",
+                }}>
+                {project.impact}
+              </p>
             </div>
+            {/* Lessons as the supporting explanation below */}
+            <p className="font-display font-light"
+              style={{
+                fontSize: "clamp(15px, 1.8vw, 18px)",
+                color: "var(--text-secondary)",
+                lineHeight: 1.75,
+                maxWidth: "600px",
+                paddingLeft: "44px",
+              }}>
+              <span style={{ color: "var(--text-tertiary)" }}>&ldquo;</span>
+              {project.lessons}
+              <span style={{ color: "var(--text-tertiary)" }}>&rdquo;</span>
+            </p>
           </div>
         </div>
       </section>

@@ -140,6 +140,8 @@ export default function ExperiencePage() {
       {/* ── ACTS — each differently staged ── */}
       {acts.map((act, i) => {
         const isEven = i % 2 === 0;
+        const isClimax = i === 2; // Act 03 — Pressure, the emotional turning point
+        const climaxColor = "var(--accent-2)";
         return (
           <section
             key={act.act}
@@ -147,50 +149,76 @@ export default function ExperiencePage() {
               borderBottom: "1px solid var(--border)",
               position: "relative",
               isolation: "isolate",
+              background: isClimax ? "rgba(245, 166, 35, 0.03)" : "transparent",
             }}
           >
-            {/* Ghost act number — bleeds through */}
+            {/* Ghost act number — climax bleeds amber */}
             <span className="ghost-num hidden lg:block" aria-hidden="true" style={{
               top: "12px",
               left: isEven ? "clamp(16px, 4vw, 60px)" : "auto",
               right: isEven ? "auto" : "clamp(16px, 4vw, 60px)",
-              fontSize: "clamp(80px, 10vw, 140px)",
-              "--ghost-c": "var(--border-2)",
+              fontSize: isClimax ? "clamp(100px, 14vw, 180px)" : "clamp(80px, 10vw, 140px)",
+              "--ghost-c": isClimax ? "rgba(245,166,35,0.18)" : "var(--border-2)",
             } as React.CSSProperties}>
               {String(i + 1).padStart(2, "0")}
             </span>
 
             <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-0">
-              {/* Act label column — compressed, always left */}
+              {/* Act label column */}
               <div style={{
-                padding: "clamp(28px, 4vh, 48px) clamp(20px, 3vw, 40px)",
-                borderRight: "1px solid var(--border)",
+                padding: isClimax
+                  ? "clamp(36px, 6vh, 64px) clamp(20px, 3vw, 40px)"
+                  : "clamp(28px, 4vh, 48px) clamp(20px, 3vw, 40px)",
+                borderRight: `1px solid ${isClimax ? "rgba(245,166,35,0.25)" : "var(--border)"}`,
                 display: "flex",
                 flexDirection: "column",
                 gap: "6px",
               }}>
-                <span className="font-mono" style={{ color: "var(--accent)", fontSize: "9px", letterSpacing: "0.1em" }}>
+                <span className="font-mono" style={{
+                  color: isClimax ? climaxColor : "var(--accent)",
+                  fontSize: "9px",
+                  letterSpacing: "0.1em",
+                }}>
                   {act.act}
                 </span>
                 <span className="font-display font-bold" style={{
-                  color: "var(--text-primary)",
-                  fontSize: "clamp(20px, 3vw, 32px)",
+                  color: isClimax ? climaxColor : "var(--text-primary)",
+                  fontSize: isClimax ? "clamp(24px, 3.5vw, 40px)" : "clamp(20px, 3vw, 32px)",
                   letterSpacing: "-0.03em",
                   lineHeight: 1.1,
                 }}>
                   {act.title}
                 </span>
-                <span className="font-mono mt-2" style={{ color: "var(--text-tertiary)", fontSize: "9px", lineHeight: 1.6 }}>
+                <span className="font-mono mt-2" style={{
+                  color: isClimax ? "rgba(245,166,35,0.6)" : "var(--text-tertiary)",
+                  fontSize: "9px",
+                  lineHeight: 1.6,
+                }}>
                   {act.scene}
                 </span>
               </div>
 
-              {/* Content column */}
-              <div style={{ padding: "clamp(28px, 4vh, 48px) clamp(24px, 4vw, 56px)" }}>
-                <h2 className="font-mono font-medium mb-4" style={{ color: "var(--text-tertiary)", fontSize: "9px", letterSpacing: "0.1em" }}>
+              {/* Content column — climax gets larger prose, no bullet list */}
+              <div style={{
+                padding: isClimax
+                  ? "clamp(36px, 6vh, 64px) clamp(24px, 4vw, 56px)"
+                  : "clamp(28px, 4vh, 48px) clamp(24px, 4vw, 56px)",
+              }}>
+                <h2 className="font-mono font-medium mb-4" style={{
+                  color: isClimax ? climaxColor : "var(--text-tertiary)",
+                  fontSize: "9px",
+                  letterSpacing: "0.1em",
+                }}>
                   {act.label}
                 </h2>
-                <p style={{ color: "var(--text-primary)", fontSize: "15px", lineHeight: 1.8, marginBottom: act.content.list ? "20px" : "0" }}>
+                <p style={{
+                  color: isClimax ? "var(--text-primary)" : "var(--text-primary)",
+                  fontSize: isClimax ? "clamp(17px, 2.2vw, 22px)" : "15px",
+                  lineHeight: isClimax ? 1.85 : 1.8,
+                  marginBottom: act.content.list ? "20px" : "0",
+                  maxWidth: isClimax ? "640px" : "none",
+                  fontWeight: isClimax ? 300 : 400,
+                }}>
                   {act.content.body}
                 </p>
                 {act.content.list && (
