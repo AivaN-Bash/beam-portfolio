@@ -223,8 +223,8 @@ a.hud-frame:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 2px;
   background: var(--surface);
   border: 1px solid var(--border-2);
@@ -254,10 +254,38 @@ a.hud-frame:hover {
   background: linear-gradient(90deg, transparent, var(--border) 15%, var(--border) 85%, transparent);
 }
 
+/* ── Desktop nav tooltip — reveals on link hover ──
+   The .nav-tooltip inside a Link gains opacity when the
+   parent <a> is hovered or focused-visible. */
+.group:hover .nav-tooltip,
+.group:focus-visible .nav-tooltip {
+  opacity: 1 !important;
+}
+
+/* ── Mobile content offset ──
+   Pages need top padding on mobile to clear the 56px header.
+   Applied via a utility class used in page bodies. */
+@media (max-width: 1023px) {
+  .mobile-pt {
+    padding-top: 56px;
+  }
+}
+
 /* Principle cells — ghost numeral smaller on mobile */
 @media (max-width: 640px) {
   .principle-ghost {
     font-size: 44px !important;
+  }
+}
+
+/* Prevent ghost numerals from causing horizontal scroll on mobile.
+   Ghost nums are absolute within `isolation: isolate` containers —
+   overflow-x: clip stops them escaping the scroll-width but doesn't
+   clip the visible overflow (unlike overflow: hidden which breaks
+   sticky/fixed children). */
+@media (max-width: 1023px) {
+  [style*="isolation: isolate"] {
+    overflow-x: clip;
   }
 }
 

@@ -154,7 +154,7 @@ export default function WorkPage() {
 
       {/* ── FILTER — compressed bar ── */}
       <div className="flex flex-wrap items-center gap-2" style={{
-        padding: "12px clamp(32px, 8vw, 120px)",
+        padding: "6px clamp(32px, 8vw, 120px)",
         borderBottom: "1px solid var(--border)",
       }}>
         <span className="font-mono mr-2" style={{ color: "var(--text-tertiary)", fontSize: "9px", letterSpacing: "0.08em" }}>
@@ -164,7 +164,9 @@ export default function WorkPage() {
           onClick={() => setFilter(null)}
           className="font-mono transition-all duration-200"
           style={{
-            fontSize: "10px", letterSpacing: "0.06em", padding: "3px 10px",
+            fontSize: "10px", letterSpacing: "0.06em",
+            padding: "0 12px",
+            minHeight: "36px",
             borderRadius: "2px", cursor: "pointer",
             border: `1px solid ${!filter ? "var(--accent)" : "var(--border)"}`,
             background: !filter ? "var(--accent-dim)" : "transparent",
@@ -176,7 +178,9 @@ export default function WorkPage() {
           <button key={cat} onClick={() => setFilter(cat === filter ? null : cat)}
             className="font-mono transition-all duration-200"
             style={{
-              fontSize: "10px", letterSpacing: "0.06em", padding: "3px 10px",
+              fontSize: "10px", letterSpacing: "0.06em",
+              padding: "0 12px",
+              minHeight: "36px",
               borderRadius: "2px", cursor: "pointer",
               border: `1px solid ${filter === cat ? "var(--accent)" : "var(--border)"}`,
               background: filter === cat ? "var(--accent-dim)" : "transparent",
