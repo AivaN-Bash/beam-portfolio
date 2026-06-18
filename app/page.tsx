@@ -10,17 +10,19 @@ function TypewriterText({ text }: { text: string }) {
   const [displayed, setDisplayed] = useState("");
 
   useEffect(() => {
-    // 50ms delay prevents interval race when hovering quickly across rows
+    let interval: ReturnType<typeof setInterval> | null = null;
     const start = setTimeout(() => {
       let i = 0;
-      const interval = setInterval(() => {
+      interval = setInterval(() => {
         setDisplayed(text.slice(0, i + 1));
         i++;
-        if (i >= text.length) clearInterval(interval);
+        if (i >= text.length && interval) clearInterval(interval);
       }, 32);
-      return () => clearInterval(interval);
     }, 50);
-    return () => clearTimeout(start);
+    return () => {
+      clearTimeout(start);
+      if (interval) clearInterval(interval);
+    };
   }, [text]);
 
   return (
@@ -70,7 +72,7 @@ export default function Home() {
           position: "relative",
           isolation: "isolate",
           padding: "clamp(80px, 11vh, 110px) clamp(32px, 8vw, 120px) clamp(48px, 7vh, 80px)",
-        }}>
+        }} className="pt-[calc(56px+clamp(24px,5vh,56px))] lg:pt-[clamp(80px,11vh,110px)]">
           {/* Ghost numeral — site coordinate, overlaps right panel */}
           <span className="ghost-num hidden md:block" aria-hidden="true" style={{
             top: "clamp(20px, 4vh, 60px)",

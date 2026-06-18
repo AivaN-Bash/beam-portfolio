@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { spaceGrotesk, inter, jetbrainsMono } from "./fonts";
+import type { NextRequest } from "next/server";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL
   ? new URL(process.env.NEXT_PUBLIC_SITE_URL)
@@ -26,13 +28,22 @@ export const metadata: Metadata = {
     siteName: "Beam",
     type: "website",
     locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Beam — Staff Engineer & Systems Architect",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Beam — Staff Engineer & Systems Architect",
     description:
       "Staff Software Engineer based in Bangkok. I build secure, high-performance systems with elegant APIs and production-grade architecture.",
-    creator: "@beamdev",
+    creator: "@beamfolio",
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
@@ -50,15 +61,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html
+      lang="en"
+      className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}
+    >
       <body>{children}</body>
     </html>
   );

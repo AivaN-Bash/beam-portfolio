@@ -6,6 +6,19 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: `${experience.title} — Work & Travel | Beam`,
   description: experience.tagline,
+  openGraph: {
+    title: `${experience.title} — Work & Travel | Beam`,
+    description: experience.tagline,
+    url: "/experience",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Beam — Experience" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${experience.title} — Work & Travel | Beam`,
+    description: experience.tagline,
+    images: ["/og-image.png"],
+  },
+  alternates: { canonical: "/experience" },
 };
 
 export default function ExperiencePage() {
@@ -45,12 +58,14 @@ export default function ExperiencePage() {
       <Nav />
 
       {/* ── OPENING — wide, spare, cinematic ── */}
-      <header style={{
-        position: "relative",
-        isolation: "isolate",
-        padding: "clamp(80px, 12vh, 120px) clamp(32px, 8vw, 120px) clamp(40px, 6vh, 64px)",
-        borderBottom: "1px solid var(--border)",
-      }}>
+      <header
+        className="pt-[calc(56px+clamp(24px,5vh,40px))] lg:pt-[clamp(80px,12vh,120px)]"
+        style={{
+          position: "relative",
+          isolation: "isolate",
+          padding: "clamp(80px, 12vh, 120px) clamp(32px, 8vw, 120px) clamp(40px, 6vh, 64px)",
+          borderBottom: "1px solid var(--border)",
+        }}>
         <span className="ghost-num hidden md:block" aria-hidden="true" style={{
           top: "20px",
           right: "clamp(16px, 6vw, 100px)",

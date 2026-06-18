@@ -20,6 +20,19 @@ export async function generateMetadata({
   return {
     title: `${project.title} — Beam`,
     description: project.tagline,
+    openGraph: {
+      title: `${project.title} — Beam`,
+      description: project.tagline,
+      url: `/work/${project.slug}`,
+      images: [{ url: "/og-image.png", width: 1200, height: 630, alt: `${project.title} — Beam` }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} — Beam`,
+      description: project.tagline,
+      images: ["/og-image.png"],
+    },
+    alternates: { canonical: `/work/${project.slug}` },
   };
 }
 
@@ -40,7 +53,10 @@ export default async function WorkDetail({
       <Nav />
 
       {/* ── SCENE 1: OPENING — breadcrumb + full-bleed title ── */}
-      <div style={{ padding: "clamp(72px, 10vh, 96px) clamp(32px, 8vw, 120px) 0" }}>
+      <div
+        className="pt-[calc(56px+clamp(16px,4vh,32px))] lg:pt-[clamp(72px,10vh,96px)]"
+        style={{ padding: "clamp(72px, 10vh, 96px) clamp(32px, 8vw, 120px) 0" }}
+      >
         <div className="flex items-center justify-between mb-12">
           <Link href="/work"
             className="inline-flex items-center gap-2 font-mono transition-colors hover:opacity-70"

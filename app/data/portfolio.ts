@@ -1,4 +1,4 @@
-export const CONTACT_EMAIL = "beam@example.com";
+export const CONTACT_EMAIL = "hello@beamfolio.dev";
 
 export const projects = [
   {
