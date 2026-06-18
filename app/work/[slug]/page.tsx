@@ -36,7 +36,7 @@ export default async function WorkDetail({
   const next = projects[projectIndex + 1] || projects[0];
 
   return (
-    <main className="lg:pl-[72px]" style={{ minHeight: "100vh" }}>
+    <main id="main-content" className="lg:pl-[72px]" style={{ minHeight: "100vh" }}>
       <Nav />
 
       {/* ── SCENE 1: OPENING — breadcrumb + full-bleed title ── */}

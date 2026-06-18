@@ -10,13 +10,17 @@ function TypewriterText({ text }: { text: string }) {
   const [displayed, setDisplayed] = useState("");
 
   useEffect(() => {
-    let i = 0;
-    const interval = setInterval(() => {
-      setDisplayed(text.slice(0, i + 1));
-      i++;
-      if (i >= text.length) clearInterval(interval);
-    }, 32);
-    return () => clearInterval(interval);
+    // 50ms delay prevents interval race when hovering quickly across rows
+    const start = setTimeout(() => {
+      let i = 0;
+      const interval = setInterval(() => {
+        setDisplayed(text.slice(0, i + 1));
+        i++;
+        if (i >= text.length) clearInterval(interval);
+      }, 32);
+      return () => clearInterval(interval);
+    }, 50);
+    return () => clearTimeout(start);
   }, [text]);
 
   return (
@@ -42,7 +46,7 @@ export default function Home() {
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
 
   return (
-    <main style={{ minHeight: "100vh", position: "relative" }} className="lg:pl-[72px]">
+    <main id="main-content" style={{ minHeight: "100vh", position: "relative" }} className="lg:pl-[72px]">
       <Nav />
 
       {/* Ambient glows — fixed, behind everything */}
@@ -457,7 +461,7 @@ export default function Home() {
                 borderTop: "1px solid var(--border)",
                 borderBottom: "1px solid var(--border)",
               }}>
-                <span className="ghost-num" aria-hidden="true" style={{
+                <span className="ghost-num principle-ghost" aria-hidden="true" style={{
                   top: "8px",
                   right: "12px",
                   fontSize: "76px",

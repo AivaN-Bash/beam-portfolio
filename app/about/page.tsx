@@ -16,7 +16,7 @@ export default function AboutPage() {
   const [hoveredYear, setHoveredYear] = useState<string | null>(null);
 
   return (
-    <main className="lg:pl-[72px]" style={{ minHeight: "100vh" }}>
+    <main id="main-content" className="lg:pl-[72px]" style={{ minHeight: "100vh" }}>
       <Nav />
 
       {/* ── SCENE 1: OPENING — identity statement, wide ── */}
@@ -55,7 +55,6 @@ export default function AboutPage() {
         <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
           {[
             { label: "LOCATION", value: "Bangkok, Thailand · UTC+7" },
-            { label: "ROLE", value: "Staff Software Engineer" },
             { label: "STATUS", value: "● Available", accent: true },
           ].map((item) => (
             <div key={item.label} className="flex items-center gap-2">

@@ -173,7 +173,8 @@ a.hud-frame:hover {
     opacity: 0;
     animation: reveal-up linear both;
     animation-timeline: view();
-    animation-range: entry 0% cover 35%;
+    animation-range: entry 5% cover 50%;
+    animation-fill-mode: both;
   }
 }
 
@@ -189,7 +190,7 @@ a.hud-frame:hover {
 .scroll-progress {
   position: fixed;
   top: 0;
-  left: 0;
+  right: 0;
   width: 2px;
   height: 100vh;
   background: var(--accent-2);
@@ -217,7 +218,7 @@ a.hud-frame:hover {
 .back-to-top {
   position: fixed;
   right: clamp(16px, 4vw, 32px);
-  bottom: clamp(16px, 4vw, 32px);
+  bottom: clamp(48px, 6vw, 56px);
   z-index: 55;
   display: flex;
   align-items: center;
@@ -226,6 +227,7 @@ a.hud-frame:hover {
   height: 40px;
   border-radius: 2px;
   background: var(--surface);
+  border: 1px solid var(--border-2);
   opacity: 0;
   pointer-events: none;
 }
@@ -250,6 +252,13 @@ a.hud-frame:hover {
 .section-divider {
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--border) 15%, var(--border) 85%, transparent);
+}
+
+/* Principle cells — ghost numeral smaller on mobile */
+@media (max-width: 640px) {
+  .principle-ghost {
+    font-size: 44px !important;
+  }
 }
 
 /* ── Reduced motion ──

@@ -5,10 +5,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const navLinks = [
-  { href: "/", label: "Index" },
-  { href: "/work", label: "Work" },
-  { href: "/about", label: "About" },
-  { href: "/experience", label: "Experience" },
+  { href: "/", label: "Index", short: "Index" },
+  { href: "/work", label: "Work", short: "Work" },
+  { href: "/about", label: "About", short: "About" },
+  { href: "/experience", label: "Experience", short: "XP" },
 ];
 
 export default function Nav() {
@@ -40,6 +40,29 @@ export default function Nav() {
 
   return (
     <>
+      {/* Skip link — keyboard/screen-reader navigation */}
+      <a
+        href="#main-content"
+        className="font-mono"
+        style={{
+          position: "fixed",
+          top: "-100px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 200,
+          padding: "8px 20px",
+          background: "var(--accent)",
+          color: "#fff",
+          fontSize: "12px",
+          borderRadius: "2px",
+          transition: "top 0.2s",
+        }}
+        onFocus={(e) => { (e.currentTarget as HTMLElement).style.top = "16px"; }}
+        onBlur={(e) => { (e.currentTarget as HTMLElement).style.top = "-100px"; }}
+      >
+        Skip to main content
+      </a>
+
       {/* Scroll progress spine — pure CSS, no scroll listeners */}
       <div className="scroll-progress" aria-hidden="true" />
 
@@ -179,13 +202,14 @@ export default function Nav() {
                 key={link.href}
                 href={link.href}
                 className="font-mono text-xs transition-colors"
+                aria-current={isActive ? "page" : undefined}
                 style={{
                   color: isActive ? "var(--text-primary)" : "var(--text-secondary)",
                   fontSize: "10px",
                   letterSpacing: "0.06em",
                 }}
               >
-                {link.label}
+                {link.short}
               </Link>
             );
           })}

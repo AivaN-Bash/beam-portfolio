@@ -41,7 +41,7 @@ export default function ExperiencePage() {
   ];
 
   return (
-    <main className="lg:pl-[72px]" style={{ minHeight: "100vh" }}>
+    <main id="main-content" className="lg:pl-[72px]" style={{ minHeight: "100vh" }}>
       <Nav />
 
       {/* ── OPENING — wide, spare, cinematic ── */}

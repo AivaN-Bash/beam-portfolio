@@ -17,7 +17,7 @@ export default function WorkPage() {
   const rest = featured ? filtered.slice(1) : filtered;
 
   return (
-    <main className="lg:pl-[72px]" style={{ minHeight: "100vh" }}>
+    <main id="main-content" className="lg:pl-[72px]" style={{ minHeight: "100vh" }}>
       <Nav />
 
       {/* ── SCENE 1: OPENING — compressed kicker, dominant title ── */}
@@ -33,7 +33,7 @@ export default function WorkPage() {
           fontSize: "clamp(140px, 18vw, 260px)",
           "--ghost-c": "var(--border-2)",
         } as React.CSSProperties}>
-          01
+          WK
         </span>
 
         <div className="flex items-center gap-3 mb-6">
