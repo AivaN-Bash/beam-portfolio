@@ -70,10 +70,8 @@ export default function Home() {
 
         {/* ── HERO ── two-column, natural height */}
         <section style={{
-          position: "relative",
-          isolation: "isolate",
           padding: "clamp(80px, 11vh, 110px) clamp(32px, 8vw, 120px) clamp(48px, 7vh, 80px)",
-        }} className="pt-[calc(56px+clamp(24px,5vh,56px))] lg:pt-[clamp(80px,11vh,110px)]">
+        }} className="relative isolate pt-[calc(56px+clamp(24px,5vh,56px))] lg:pt-[clamp(80px,11vh,110px)]">
           {/* Ghost numeral — site coordinate, overlaps right panel */}
           <span className="ghost-num hidden md:block" aria-hidden="true" style={{
             top: "clamp(20px, 4vh, 60px)",
@@ -277,10 +275,8 @@ export default function Home() {
                   onBlur={() => setHoveredProject(null)}
                 >
                   <div
-                    className={`px-3 transition-all duration-300 hud-frame ${isActive ? "hud-frame--active" : ""}`}
+                    className={`relative isolate px-3 transition-all duration-300 hud-frame ${isActive ? "hud-frame--active" : ""}`}
                     style={{
-                      position: "relative",
-                      isolation: "isolate",
                       borderBottom: "1px solid var(--border)",
                       background: isActive ? `${project.accent}08` : "transparent",
                       opacity: hoveredProject && !isActive ? 0.28 : 1,
@@ -459,9 +455,7 @@ export default function Home() {
                 index: "04",
               },
             ].map((p, i) => (
-              <div key={i} className="hud-frame reveal" style={{
-                position: "relative",
-                isolation: "isolate",
+              <div key={i} className="relative isolate hud-frame reveal" style={{
                 padding: "24px 24px 28px",
                 minHeight: "180px",
                 borderLeft: i === 0 ? "1px solid var(--border)" : "none",

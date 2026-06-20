@@ -21,11 +21,9 @@ export default function AboutClient() {
 
       {/* ── SCENE 1: OPENING — identity statement, wide ── */}
       <header style={{
-        position: "relative",
-        isolation: "isolate",
         padding: "clamp(80px, 12vh, 120px) clamp(32px, 8vw, 120px) clamp(40px, 6vh, 60px)",
         borderBottom: "1px solid var(--border)",
-      }} className="pt-[calc(56px+clamp(24px,5vh,40px))] lg:pt-[clamp(80px,12vh,120px)]">
+      }} className="relative isolate pt-[calc(56px+clamp(24px,5vh,40px))] lg:pt-[clamp(80px,12vh,120px)]">
         <span className="ghost-num hidden lg:block" aria-hidden="true" style={{
           top: "-10px",
           right: "0",
@@ -170,9 +168,7 @@ export default function AboutClient() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
           {focus.map((f, i) => (
-            <div key={f.area} className="hud-frame" style={{
-              position: "relative",
-              isolation: "isolate",
+            <div key={f.area} className="relative isolate hud-frame" style={{
               padding: "20px 24px 24px",
               borderLeft: i === 0 ? "none" : "1px solid var(--border)",
               borderRight: "none",

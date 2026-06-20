@@ -75,7 +75,7 @@ export default async function WorkDetail({
         </div>
 
         {/* Opening: full-width title — no sidebar competing for attention */}
-        <header style={{ position: "relative", isolation: "isolate", paddingBottom: "clamp(32px, 5vh, 56px)" }}>
+        <header className="relative isolate" style={{ paddingBottom: "clamp(32px, 5vh, 56px)" }}>
           <span className="ghost-num hidden md:block" aria-hidden="true" style={{
             top: "-20px",
             right: "0",
@@ -273,10 +273,8 @@ export default async function WorkDetail({
       </section>
 
       {/* ── SCENE 5: REFLECTION — wide, sparse, impact first ── */}
-      <section style={{
+      <section className="relative isolate" style={{
         padding: "clamp(48px, 8vh, 96px) clamp(32px, 8vw, 120px)",
-        position: "relative",
-        isolation: "isolate",
         borderBottom: "1px solid var(--border)",
       }}>
         <div className="grid grid-cols-1 lg:grid-cols-[180px_1fr] gap-8 lg:gap-16">
@@ -321,10 +319,8 @@ export default async function WorkDetail({
       </section>
 
       {/* ── SCENE 6: TRANSITION — next project ── */}
-      <div style={{
+      <div className="relative isolate" style={{
         padding: "clamp(32px, 5vh, 48px) clamp(32px, 8vw, 120px)",
-        position: "relative",
-        isolation: "isolate",
       }}>
         <div className="flex items-center justify-between">
           <div>

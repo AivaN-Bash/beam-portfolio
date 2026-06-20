@@ -59,10 +59,8 @@ export default function ExperiencePage() {
 
       {/* ── OPENING — wide, spare, cinematic ── */}
       <header
-        className="pt-[calc(56px+clamp(24px,5vh,40px))] lg:pt-[clamp(80px,12vh,120px)]"
+        className="relative isolate pt-[calc(56px+clamp(24px,5vh,40px))] lg:pt-[clamp(80px,12vh,120px)]"
         style={{
-          position: "relative",
-          isolation: "isolate",
           padding: "clamp(80px, 12vh, 120px) clamp(32px, 8vw, 120px) clamp(40px, 6vh, 64px)",
           borderBottom: "1px solid var(--border)",
         }}>
@@ -160,10 +158,9 @@ export default function ExperiencePage() {
         return (
           <section
             key={act.act}
+            className="relative isolate"
             style={{
               borderBottom: "1px solid var(--border)",
-              position: "relative",
-              isolation: "isolate",
               background: isClimax ? "rgba(245, 166, 35, 0.03)" : "transparent",
             }}
           >
@@ -263,9 +260,7 @@ export default function ExperiencePage() {
       })}
 
       {/* ── ACT 05: IMPACT — wide full-bleed reflection ── */}
-      <section style={{
-        position: "relative",
-        isolation: "isolate",
+      <section className="relative isolate" style={{
         borderBottom: "1px solid var(--border)",
         padding: "clamp(48px, 8vh, 96px) clamp(32px, 8vw, 120px)",
       }}>
@@ -310,11 +305,9 @@ export default function ExperiencePage() {
       </section>
 
       {/* ── CLOSING: REFLECTION — a moment to breathe ── */}
-      <section style={{
+      <section className="relative isolate" style={{
         padding: "clamp(48px, 8vh, 96px) clamp(32px, 8vw, 120px)",
         borderBottom: "1px solid var(--border)",
-        position: "relative",
-        isolation: "isolate",
       }}>
         <div className="font-mono hud-frame" style={{
           fontSize: "clamp(13px, 1.8vw, 16px)",

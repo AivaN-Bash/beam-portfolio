@@ -18,14 +18,13 @@ export default function Error({
   return (
     <main
       id="main-content"
+      className="relative isolate"
       style={{
         minHeight: "100vh",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         padding: "clamp(32px, 8vw, 120px)",
-        position: "relative",
-        isolation: "isolate",
       }}
     >
       {/* Ambient glow */}

@@ -141,7 +141,7 @@ a.hud-frame:hover {
 /* ── Ghost numerals — oversized outline type used as a
    secondary focal point behind content. Always
    pointer-events:none and z-index:-1; pair with
-   `position: relative; isolation: isolate;` on the
+   `className="relative isolate"` on the
    containing element so it paints behind static content. */
 .ghost-num {
   position: absolute;
@@ -282,12 +282,12 @@ a.hud-frame:hover {
 }
 
 /* Prevent ghost numerals from causing horizontal scroll on mobile.
-   Ghost nums are absolute within `isolation: isolate` containers —
-   overflow-x: clip stops them escaping the scroll-width but doesn't
-   clip the visible overflow (unlike overflow: hidden which breaks
-   sticky/fixed children). */
+   Ghost nums are absolute within `.isolate` containers (Tailwind's
+   `relative isolate` utilities) — overflow-x: clip stops them
+   escaping the scroll-width but doesn't clip the visible overflow
+   (unlike overflow: hidden which breaks sticky/fixed children). */
 @media (max-width: 1023px) {
-  [style*="isolation: isolate"] {
+  .isolate {
     overflow-x: clip;
   }
 }

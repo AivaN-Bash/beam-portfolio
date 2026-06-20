@@ -22,10 +22,8 @@ export default function WorkPage() {
 
       {/* ── SCENE 1: OPENING — compressed kicker, dominant title ── */}
       <header
-        className="pt-[calc(56px+clamp(24px,5vh,40px))] lg:pt-[clamp(80px,12vh,120px)]"
+        className="relative isolate pt-[calc(56px+clamp(24px,5vh,40px))] lg:pt-[clamp(80px,12vh,120px)]"
         style={{
-          position: "relative",
-          isolation: "isolate",
           padding: "clamp(80px, 12vh, 120px) clamp(32px, 8vw, 120px) clamp(40px, 6vh, 60px)",
           borderBottom: "1px solid var(--border)",
         }}>
@@ -90,9 +88,7 @@ export default function WorkPage() {
       {/* ── SCENE 2: FEATURED — the lead project, given room ── */}
       {featured && (
         <Link href={`/work/${featured.slug}`} className="group block" style={{ borderBottom: "1px solid var(--border)" }}>
-          <div className="hud-frame hud-frame--active" style={{
-            position: "relative",
-            isolation: "isolate",
+          <div className="relative isolate hud-frame hud-frame--active" style={{
             padding: "clamp(32px, 5vh, 56px) clamp(32px, 8vw, 120px)",
             "--hud-c": featured.accent,
           } as React.CSSProperties}>
@@ -217,9 +213,7 @@ export default function WorkPage() {
             onFocus={() => setHoveredProject(project.id)}
             onBlur={() => setHoveredProject(null)}
           >
-            <div className={`transition-all duration-200 hud-frame ${hoveredProject === project.id ? "hud-frame--active" : ""}`} style={{
-              position: "relative",
-              isolation: "isolate",
+            <div className={`relative isolate transition-all duration-200 hud-frame ${hoveredProject === project.id ? "hud-frame--active" : ""}`} style={{
               borderBottom: "1px solid var(--border)",
               background: hoveredProject === project.id ? `${project.accent}05` : "transparent",
               padding: "18px 12px",
