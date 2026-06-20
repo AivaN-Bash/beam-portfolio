@@ -2,9 +2,23 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { spaceGrotesk, inter, jetbrainsMono } from "./fonts";
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL
-  ? new URL(process.env.NEXT_PUBLIC_SITE_URL)
-  : new URL("https://beamfolio.dev");
+function getBaseUrl(): URL {
+  const raw = process.env.NEXT_PUBLIC_SITE_URL;
+  if (raw) {
+    try {
+      return new URL(raw);
+    } catch {
+      console.error(
+        `[layout] NEXT_PUBLIC_SITE_URL is set to an invalid URL ("${raw}"). ` +
+          `Falling back to https://beamfolio.dev — fix the env var so canonical URLs, ` +
+          `the sitemap, and OG images point at the right domain.`
+      );
+    }
+  }
+  return new URL("https://beamfolio.dev");
+}
+
+const BASE_URL = getBaseUrl();
 
 export const metadata: Metadata = {
   metadataBase: BASE_URL,
