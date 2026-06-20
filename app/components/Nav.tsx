@@ -16,17 +16,20 @@ export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [time, setTime] = useState("");
+  const [prevPathname, setPrevPathname] = useState(pathname);
+
+  // Close mobile menu on route change (adjusted during render, not in an
+  // effect, to avoid an extra cascading render pass on every navigation)
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
+    setMobileOpen(false);
+  }
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  // Close mobile menu on route change
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
 
   useEffect(() => {
     const updateTime = () => {
@@ -52,6 +55,16 @@ export default function Nav() {
       document.body.style.overflow = "";
     }
     return () => { document.body.style.overflow = ""; };
+  }, [mobileOpen]);
+
+  // Allow keyboard users to dismiss the mobile menu with Escape
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [mobileOpen]);
 
   return (
@@ -303,7 +316,7 @@ export default function Nav() {
           }}
         >
           <div style={{ padding: "8px 0 16px" }}>
-            {navLinks.map((link, i) => {
+            {navLinks.map((link) => {
               const isActive =
                 link.href === "/"
                   ? pathname === "/"

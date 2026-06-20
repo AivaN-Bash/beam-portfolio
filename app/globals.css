@@ -184,9 +184,10 @@ a.hud-frame:hover {
 }
 
 /* ── Scroll progress spine ──
-   A 2px line along the left edge of the viewport that fills
-   top-to-bottom as the document scrolls. Pure compositor
-   animation (transform: scaleY), no scroll listeners. */
+   A 2px line along the right edge of the viewport (kept clear
+   of the left nav rail) that fills top-to-bottom as the
+   document scrolls. Pure compositor animation (transform:
+   scaleY), no scroll listeners. */
 .scroll-progress {
   position: fixed;
   top: 0;
@@ -228,12 +229,14 @@ a.hud-frame:hover {
   border-radius: 2px;
   background: var(--surface);
   border: 1px solid var(--border-2);
-  opacity: 0;
-  pointer-events: none;
+  opacity: 1;
+  pointer-events: auto;
 }
 
 @supports (animation-timeline: scroll()) {
   .back-to-top {
+    opacity: 0;
+    pointer-events: none;
     animation: appear-on-scroll linear;
     animation-timeline: scroll(root);
     animation-range: 600px 900px;

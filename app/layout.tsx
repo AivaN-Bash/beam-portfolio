@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { spaceGrotesk, inter, jetbrainsMono } from "./fonts";
-import type { NextRequest } from "next/server";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL
   ? new URL(process.env.NEXT_PUBLIC_SITE_URL)

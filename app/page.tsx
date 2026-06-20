@@ -46,6 +46,7 @@ const capabilities = [
 
 export default function Home() {
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
+  const currentYear = new Date().getFullYear();
 
   return (
     <main id="main-content" style={{ minHeight: "100vh", position: "relative" }} className="lg:pl-[72px]">
@@ -164,7 +165,7 @@ export default function Home() {
                   <span className="font-mono" style={{ color: "var(--text-tertiary)", fontSize: "9px", letterSpacing: "0.1em" }}>
                     CURRENT STATUS
                   </span>
-                  <span className="font-mono" style={{ color: "var(--text-tertiary)", fontSize: "9px" }}>2025</span>
+                  <span className="font-mono" style={{ color: "var(--text-tertiary)", fontSize: "9px" }}>{currentYear}</span>
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
@@ -312,7 +313,12 @@ export default function Home() {
                           minWidth: "clamp(130px, 18vw, 190px)",
                         }}>
                         {isActive
-                          ? <TypewriterText text={project.title} />
+                          ? (
+                            <>
+                              <span aria-hidden="true"><TypewriterText text={project.title} /></span>
+                              <span className="sr-only">{project.title}</span>
+                            </>
+                          )
                           : project.title}
                       </span>
                       <span className="hidden md:block flex-1 mx-4 overflow-hidden"
@@ -518,7 +524,7 @@ export default function Home() {
           <div className="flex items-center justify-between mt-8"
             style={{ borderTop: "1px solid var(--border)", paddingTop: "16px" }}>
             <span className="font-mono" style={{ color: "var(--text-tertiary)", fontSize: "10px" }}>
-              © 2025 Beam. Bangkok, Thailand.
+              © {currentYear} Beam. Bangkok, Thailand.
             </span>
             <span className="font-mono" style={{ color: "var(--text-tertiary)", fontSize: "10px" }}>
               Next.js · TypeScript · Tailwind

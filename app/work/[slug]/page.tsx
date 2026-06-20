@@ -18,7 +18,7 @@ export async function generateMetadata({
   const project = projects.find((p) => p.slug === slug);
   if (!project) return {};
   return {
-    title: `${project.title} — Beam`,
+    title: project.title,
     description: project.tagline,
     openGraph: {
       title: `${project.title} — Beam`,

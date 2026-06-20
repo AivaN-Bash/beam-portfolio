@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "404 — Page Not Found | Beam",
+  title: "404 — Page Not Found",
   description: "The page you're looking for doesn't exist.",
   robots: { index: false, follow: false },
 };
@@ -11,7 +11,6 @@ export default function NotFound() {
   return (
     <main
       id="main-content"
-      className="lg:pl-[72px]"
       style={{
         minHeight: "100vh",
         display: "flex",

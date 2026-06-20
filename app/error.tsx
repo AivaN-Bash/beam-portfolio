@@ -18,7 +18,6 @@ export default function Error({
   return (
     <main
       id="main-content"
-      className="lg:pl-[72px]"
       style={{
         minHeight: "100vh",
         display: "flex",

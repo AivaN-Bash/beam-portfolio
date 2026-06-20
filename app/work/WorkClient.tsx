@@ -156,7 +156,7 @@ export default function WorkPage() {
 
       {/* ── FILTER — compressed bar ── */}
       <div
-        role="toolbar"
+        role="group"
         aria-label="Filter projects by category"
         className="flex flex-wrap items-center gap-2"
         style={{

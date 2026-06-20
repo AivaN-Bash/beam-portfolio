@@ -4,7 +4,7 @@ import { experience } from "../data/portfolio";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: `${experience.title} — Work & Travel | Beam`,
+  title: `${experience.title} — Work & Travel`,
   description: experience.tagline,
   openGraph: {
     title: `${experience.title} — Work & Travel | Beam`,
