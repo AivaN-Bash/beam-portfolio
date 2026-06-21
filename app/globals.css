@@ -24,7 +24,6 @@
 }
 
 html {
-  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -266,6 +265,9 @@ a.hud-frame:hover {
   border: 1px solid var(--border-2);
   opacity: 1;
   pointer-events: auto;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
 }
 
 @supports (animation-timeline: scroll()) {
@@ -329,15 +331,12 @@ a.hud-frame:hover {
 
 /* ── Reduced motion ──
    Placed last so it wins the cascade for equal-specificity
-   declarations (opacity, transform, animation-name,
-   scroll-behavior) regardless of source order elsewhere. */
+   declarations (opacity, transform, animation-name)
+   regardless of source order elsewhere. */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
-  }
-  html {
-    scroll-behavior: auto;
   }
   .fade-in,
   .reveal,

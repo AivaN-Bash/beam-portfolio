@@ -67,6 +67,20 @@ export default function Nav() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [mobileOpen]);
 
+  // Explicit smooth scroll for the back-to-top control. Previously this
+  // rode on a global `html { scroll-behavior: smooth }` rule, which also
+  // forced Next.js's own scrollTo(0,0) on route changes to animate instead
+  // of jump instantly — causing the new page to visibly lag/fail to reach
+  // the top, especially if a fast follow-up click interrupted it. That
+  // global rule has been removed; this handler keeps the smooth feel for
+  // this one explicit, user-initiated action only.
+  const scrollToTop = () => {
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: prefersReducedMotion ? "auto" : "smooth" });
+  };
+
   return (
     <>
       {/* Skip link — keyboard/screen-reader navigation */}
@@ -96,8 +110,9 @@ export default function Nav() {
       <div className="scroll-progress" aria-hidden="true" />
 
       {/* Back to top */}
-      <a
-        href="#"
+      <button
+        type="button"
+        onClick={scrollToTop}
         className="back-to-top hud-frame"
         aria-label="Back to top"
         style={{ "--hud-c": "var(--accent-2)", "--hs": "8px" } as React.CSSProperties}
@@ -105,7 +120,7 @@ export default function Nav() {
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true" focusable="false">
           <path d="M8 13V3M8 3L3 8M8 3L13 8" stroke="#F5A623" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
-      </a>
+      </button>
 
       {/* ── DESKTOP: fixed left rail ── */}
       <aside
