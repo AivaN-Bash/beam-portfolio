@@ -76,7 +76,7 @@ export default async function WorkDetail({
 
         {/* Opening: full-width title — no sidebar competing for attention */}
         <header className="relative isolate" style={{ paddingBottom: "clamp(32px, 5vh, 56px)" }}>
-          <span className="ghost-num hidden md:block" aria-hidden="true" style={{
+          <span className="ghost-num" aria-hidden="true" style={{
             top: "-20px",
             right: "0",
             fontSize: "clamp(180px, 26vw, 360px)",
@@ -168,7 +168,6 @@ export default async function WorkDetail({
       {/* ── SCENE 3: THE PROBLEM — wide, open, single focus ── */}
       <section style={{
         padding: "clamp(48px, 7vh, 80px) clamp(32px, 8vw, 120px)",
-        borderBottom: "1px solid var(--border)",
       }}>
         <div className="grid grid-cols-1 lg:grid-cols-[180px_1fr] gap-8 lg:gap-16">
           <div className="flex flex-col gap-2 lg:pt-2">
@@ -176,7 +175,7 @@ export default async function WorkDetail({
               THE PROBLEM
             </h2>
             <p className="font-mono" style={{ color: "var(--text-tertiary)", fontSize: "9px" }}>
-              Scene 01 of 04
+              Scene 01 of 03
             </p>
           </div>
           <div>
@@ -193,18 +192,22 @@ export default async function WorkDetail({
         </div>
       </section>
 
+      <div className="section-divider" style={{ margin: "0 clamp(32px, 8vw, 120px)" }} />
+
       {/* ── SCENE 4: DEEP DIVE — compressed, dense, two-column ── */}
       <section style={{
         padding: "0 clamp(32px, 8vw, 120px)",
-        borderBottom: "1px solid var(--border)",
       }}>
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-0 lg:gap-12">
 
           {/* Left: Solution + Decisions — dense */}
           <div style={{ padding: "clamp(32px, 5vh, 56px) 0", borderRight: "1px solid var(--border)", paddingRight: "clamp(20px, 4vw, 56px)" }}>
-            <h2 className="font-mono font-medium mb-4" style={{ color: project.accent, fontSize: "9px", letterSpacing: "0.1em" }}>
+            <h2 className="font-mono font-medium" style={{ color: project.accent, fontSize: "9px", letterSpacing: "0.1em" }}>
               THE SOLUTION
             </h2>
+            <p className="font-mono mb-4" style={{ color: "var(--text-tertiary)", fontSize: "9px" }}>
+              Scene 02 of 03
+            </p>
             {/* Larger than Scene 3 problem — answer should feel bigger than the question */}
             <p className="font-display font-light" style={{
               color: "var(--text-primary)",
@@ -272,10 +275,11 @@ export default async function WorkDetail({
         </div>
       </section>
 
+      <div className="section-divider" style={{ margin: "0 clamp(32px, 8vw, 120px)" }} />
+
       {/* ── SCENE 5: REFLECTION — wide, sparse, impact first ── */}
       <section className="relative isolate" style={{
         padding: "clamp(48px, 8vh, 96px) clamp(32px, 8vw, 120px)",
-        borderBottom: "1px solid var(--border)",
       }}>
         <div className="grid grid-cols-1 lg:grid-cols-[180px_1fr] gap-8 lg:gap-16">
           <div className="flex flex-col gap-2 lg:pt-2">
@@ -283,12 +287,12 @@ export default async function WorkDetail({
               IMPACT & LESSONS
             </h2>
             <p className="font-mono" style={{ color: "var(--text-tertiary)", fontSize: "9px" }}>
-              Scene 04 of 04
+              Scene 03 of 03
             </p>
           </div>
           <div>
             {/* Impact first — the most important sentence on the page */}
-            <div className="flex items-start gap-3 mb-6">
+            <div className="flex items-start gap-3 mb-6 reveal--strong">
               <span className="inline-block w-8 h-px flex-shrink-0 mt-3" style={{ background: "var(--accent-2)" }} />
               <p className="font-display font-semibold"
                 style={{
@@ -317,6 +321,8 @@ export default async function WorkDetail({
           </div>
         </div>
       </section>
+
+      <div className="section-divider" style={{ margin: "0 clamp(32px, 8vw, 120px)" }} />
 
       {/* ── SCENE 6: TRANSITION — next project ── */}
       <div className="relative isolate" style={{

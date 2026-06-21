@@ -73,7 +73,7 @@ export default function Home() {
           padding: "clamp(80px, 11vh, 110px) clamp(32px, 8vw, 120px) clamp(48px, 7vh, 80px)",
         }} className="relative isolate pt-[calc(56px+clamp(24px,5vh,56px))] lg:pt-[clamp(80px,11vh,110px)]">
           {/* Ghost numeral — site coordinate, overlaps right panel */}
-          <span className="ghost-num hidden md:block" aria-hidden="true" style={{
+          <span className="ghost-num" aria-hidden="true" style={{
             top: "clamp(20px, 4vh, 60px)",
             right: "clamp(16px, 6vw, 90px)",
             fontSize: "clamp(140px, 20vw, 320px)",
@@ -263,7 +263,6 @@ export default function Home() {
           <div>
             {projects.map((project) => {
               const isActive = hoveredProject === project.id;
-              const remainingStack = project.stack.slice(3);
               return (
                 <Link
                   key={project.id}
@@ -365,44 +364,6 @@ export default function Home() {
                         ))}
                       </div>
                     </div>
-
-                    {/* Hover-reveal detail layer — remaining stack, key decision, impact */}
-                    <div className={`hud-expand ${isActive ? "is-open" : ""}`} style={{ paddingLeft: "40px" }}>
-                      <div className="pb-4 space-y-2.5">
-                        {remainingStack.length > 0 && (
-                          <div className="hidden lg:flex items-center gap-1.5 flex-wrap">
-                            {remainingStack.map((tech) => (
-                              <span key={tech} className="font-mono"
-                                style={{
-                                  fontSize: "9px", padding: "1px 5px",
-                                  border: "1px solid var(--border)",
-                                  borderRadius: "2px",
-                                  color: "var(--text-tertiary)",
-                                  background: "var(--surface)",
-                                }}>
-                                {tech}
-                              </span>
-                            ))}
-                          </div>
-                        )}
-                        <div className="flex items-start gap-2">
-                          <span className="font-mono flex-shrink-0" style={{ color: project.accent, fontSize: "10px" }}>
-                            $ decision
-                          </span>
-                          <p className="font-mono" style={{ color: "var(--text-secondary)", fontSize: "11px", lineHeight: 1.6, maxWidth: "480px" }}>
-                            {project.decisions[0]}
-                          </p>
-                        </div>
-                        <div className="flex items-start gap-2">
-                          <span className="font-mono flex-shrink-0" style={{ color: "var(--accent-2)", fontSize: "10px" }}>
-                            $ impact
-                          </span>
-                          <p className="font-mono" style={{ color: "var(--text-secondary)", fontSize: "11px", lineHeight: 1.6, maxWidth: "480px" }}>
-                            {project.impact}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </Link>
               );
@@ -415,22 +376,15 @@ export default function Home() {
 
         {/* ── PRINCIPLES — full width grid ── */}
         <section style={{ padding: "clamp(36px, 5vh, 56px) clamp(32px, 8vw, 120px) clamp(48px, 7vh, 72px)" }}>
-          <div className="flex items-center justify-between mb-8 reveal"
+          <div className="flex items-center justify-between mb-10 reveal"
             style={{ borderBottom: "1px solid var(--border)", paddingBottom: "12px" }}>
             <h2 className="font-mono" style={{ color: "var(--text-tertiary)", fontSize: "10px", letterSpacing: "0.1em", fontWeight: 500 }}>
               ENGINEERING PRINCIPLES
             </h2>
+            <span className="font-mono" style={{ color: "var(--text-tertiary)", fontSize: "9px", letterSpacing: "0.06em" }}>
+              Four beliefs underneath all of it
+            </span>
           </div>
-
-          <p className="font-display font-light reveal" style={{
-            fontSize: "clamp(14px, 1.6vw, 18px)",
-            color: "var(--text-secondary)",
-            maxWidth: "640px",
-            lineHeight: 1.6,
-            marginBottom: "32px",
-          }}>
-            None of the decisions above happened by accident. Four beliefs sit underneath all of it:
-          </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
             {[
@@ -463,7 +417,7 @@ export default function Home() {
                 borderTop: "1px solid var(--border)",
                 borderBottom: "1px solid var(--border)",
               }}>
-                <span className="ghost-num principle-ghost" aria-hidden="true" style={{
+                <span className="ghost-num ghost-num--dim principle-ghost" aria-hidden="true" style={{
                   top: "8px",
                   right: "12px",
                   fontSize: "76px",
@@ -494,7 +448,7 @@ export default function Home() {
         <footer style={{
           padding: "clamp(32px, 5vh, 52px) clamp(32px, 8vw, 120px)",
         }}>
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 reveal">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 reveal--strong">
             <div>
               <p className="font-display font-semibold mb-0.5" style={{
                 fontSize: "clamp(18px, 2.5vw, 24px)", color: "var(--text-primary)", letterSpacing: "-0.025em",

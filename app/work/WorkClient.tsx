@@ -25,9 +25,8 @@ export default function WorkPage() {
         className="relative isolate pt-[calc(56px+clamp(24px,5vh,40px))] lg:pt-[clamp(80px,12vh,120px)]"
         style={{
           padding: "clamp(80px, 12vh, 120px) clamp(32px, 8vw, 120px) clamp(40px, 6vh, 60px)",
-          borderBottom: "1px solid var(--border)",
         }}>
-        <span className="ghost-num hidden lg:block" aria-hidden="true" style={{
+        <span className="ghost-num" aria-hidden="true" style={{
           top: "-10px",
           right: "0",
           fontSize: "clamp(140px, 18vw, 260px)",
@@ -85,9 +84,11 @@ export default function WorkPage() {
         </div>
       </header>
 
+      <div className="section-divider" style={{ margin: "0 clamp(32px, 8vw, 120px)" }} />
+
       {/* ── SCENE 2: FEATURED — the lead project, given room ── */}
       {featured && (
-        <Link href={`/work/${featured.slug}`} className="group block" style={{ borderBottom: "1px solid var(--border)" }}>
+        <Link href={`/work/${featured.slug}`} className="group block">
           <div className="relative isolate hud-frame hud-frame--active" style={{
             padding: "clamp(32px, 5vh, 56px) clamp(32px, 8vw, 120px)",
             "--hud-c": featured.accent,
@@ -149,6 +150,8 @@ export default function WorkPage() {
           </div>
         </Link>
       )}
+
+      <div className="section-divider" style={{ margin: "0 clamp(32px, 8vw, 120px)" }} />
 
       {/* ── FILTER — compressed bar ── */}
       <div
@@ -312,16 +315,16 @@ export default function WorkPage() {
       </div>
 
       {/* ── TRANSITION ── */}
-      <div style={{ padding: "clamp(28px, 4vh, 44px) clamp(32px, 8vw, 120px) 0" }}>
+      <div style={{ padding: "clamp(28px, 4vh, 44px) clamp(32px, 8vw, 120px) clamp(40px, 6vh, 56px)" }}>
         <div className="flex items-center justify-between">
           <span className="font-mono" style={{ color: "var(--text-tertiary)", fontSize: "9px", letterSpacing: "0.08em" }}>
             CONTINUE
           </span>
-          <Link href="/about" className="group hud-frame flex items-center gap-3"
+          <Link href="/experience" className="group hud-frame flex items-center gap-3"
             style={{ padding: "10px 18px" }}>
             <span className="font-display font-bold"
               style={{ color: "var(--accent)", fontSize: "clamp(18px, 2.5vw, 28px)", letterSpacing: "-0.025em" }}>
-              How I think
+              Before the code
             </span>
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" focusable="false"
               className="transition-transform duration-200 group-hover:translate-x-1">
@@ -331,8 +334,6 @@ export default function WorkPage() {
           </Link>
         </div>
       </div>
-
-      <div style={{ height: "clamp(24px, 4vh, 40px)" }} />
 
     </main>
   );

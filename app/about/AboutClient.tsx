@@ -22,9 +22,8 @@ export default function AboutClient() {
       {/* ── SCENE 1: OPENING — identity statement, wide ── */}
       <header style={{
         padding: "clamp(80px, 12vh, 120px) clamp(32px, 8vw, 120px) clamp(40px, 6vh, 60px)",
-        borderBottom: "1px solid var(--border)",
       }} className="relative isolate pt-[calc(56px+clamp(24px,5vh,40px))] lg:pt-[clamp(80px,12vh,120px)]">
-        <span className="ghost-num hidden lg:block" aria-hidden="true" style={{
+        <span className="ghost-num" aria-hidden="true" style={{
           top: "-10px",
           right: "0",
           fontSize: "clamp(140px, 18vw, 260px)",
@@ -70,10 +69,11 @@ export default function AboutClient() {
         </div>
       </header>
 
+      <div className="section-divider" style={{ margin: "0 clamp(32px, 8vw, 120px)" }} />
+
       {/* ── SCENE 2: VOICE — bio as narrative, not a summary ── */}
       <section style={{
         padding: "0 clamp(32px, 8vw, 120px)",
-        borderBottom: "1px solid var(--border)",
       }}>
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-0">
 
@@ -151,8 +151,10 @@ export default function AboutClient() {
         </div>
       </section>
 
+      <div className="section-divider" style={{ margin: "0 clamp(32px, 8vw, 120px)" }} />
+
       {/* ── SCENE 3: DEPTH — focus areas, dense grid ── */}
-      <section style={{ borderBottom: "1px solid var(--border)" }}>
+      <section>
         <div style={{
           padding: "clamp(24px, 3vh, 36px) clamp(32px, 8vw, 120px)",
           borderBottom: "1px solid var(--border)",
@@ -175,7 +177,7 @@ export default function AboutClient() {
               borderTop: "none",
               borderBottom: "none",
             }}>
-              <span className="ghost-num" aria-hidden="true" style={{
+              <span className="ghost-num ghost-num--dim" aria-hidden="true" style={{
                 bottom: "4px",
                 right: "12px",
                 fontSize: "52px",
@@ -200,10 +202,11 @@ export default function AboutClient() {
         </div>
       </section>
 
+      <div className="section-divider" style={{ margin: "0 clamp(32px, 8vw, 120px)" }} />
+
       {/* ── SCENE 4: HISTORY — timeline big on left, tools right ── */}
       <section style={{
         padding: "0 clamp(32px, 8vw, 120px)",
-        borderBottom: "1px solid var(--border)",
       }}>
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-0">
 
@@ -293,8 +296,10 @@ export default function AboutClient() {
         </div>
       </section>
 
+      <div className="section-divider" style={{ margin: "0 clamp(32px, 8vw, 120px)" }} />
+
       {/* ── SCENE 5: BEFORE CODE — teaser, compressed horizontal ── */}
-      <section style={{ borderBottom: "1px solid var(--border)" }}>
+      <section style={{ background: "color-mix(in srgb, var(--accent) 4%, transparent)" }}>
         <Link href="/experience" className="group block" style={{
           padding: "clamp(20px, 3vh, 32px) clamp(32px, 8vw, 120px)",
         }}>
@@ -321,9 +326,11 @@ export default function AboutClient() {
         </Link>
       </section>
 
+      <div className="section-divider" style={{ margin: "0 clamp(32px, 8vw, 120px)" }} />
+
       {/* ── CLOSING — expansive, room to breathe ── */}
       <section style={{ padding: "clamp(40px, 7vh, 72px) clamp(32px, 8vw, 120px)" }}>
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 items-end">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 items-end reveal--strong">
           <div>
             <h2 className="font-display font-semibold mb-2"
               style={{ fontSize: "clamp(20px, 3vw, 32px)", color: "var(--text-primary)", letterSpacing: "-0.025em" }}>

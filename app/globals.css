@@ -155,8 +155,18 @@ a.hud-frame:hover {
   color: transparent;
   -webkit-text-stroke: 1.5px var(--ghost-c, var(--border-2));
   white-space: nowrap;
-  transition: -webkit-text-stroke-color 0.3s ease;
+  transition: -webkit-text-stroke-color 0.3s ease, opacity 0.3s ease;
 }
+
+/* Secondary ghost numerals (repeated grid/list/act instances) —
+   quieter stroke + opacity so the one primary numeral on a given
+   screen reads as the focal point instead of all of them
+   competing at equal weight. */
+.ghost-num--dim {
+  -webkit-text-stroke-width: 1px;
+  opacity: 0.6;
+}
+
 
 /* ── Scroll-driven reveal ──
    Zero JavaScript: the browser's compositor drives this via
@@ -180,6 +190,31 @@ a.hud-frame:hover {
 
 @keyframes reveal-up {
   from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Reveal, strong ──
+   Same mechanism as .reveal, more travel and a slightly later
+   trigger — reserved for the handful of true narrative high
+   points (a climax beat, an impact statement) so their arrival
+   reads as heavier than routine content. Not a new component,
+   just more amplitude on the existing one. */
+.reveal--strong {
+  opacity: 1;
+}
+
+@supports (animation-timeline: view()) {
+  .reveal--strong {
+    opacity: 0;
+    animation: reveal-up-strong linear both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 60%;
+    animation-fill-mode: both;
+  }
+}
+
+@keyframes reveal-up-strong {
+  from { opacity: 0; transform: translateY(44px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -305,7 +340,8 @@ a.hud-frame:hover {
     scroll-behavior: auto;
   }
   .fade-in,
-  .reveal {
+  .reveal,
+  .reveal--strong {
     animation: none;
     opacity: 1;
     transform: none;

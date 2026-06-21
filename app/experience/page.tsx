@@ -62,9 +62,8 @@ export default function ExperiencePage() {
         className="relative isolate pt-[calc(56px+clamp(24px,5vh,40px))] lg:pt-[clamp(80px,12vh,120px)]"
         style={{
           padding: "clamp(80px, 12vh, 120px) clamp(32px, 8vw, 120px) clamp(40px, 6vh, 64px)",
-          borderBottom: "1px solid var(--border)",
         }}>
-        <span className="ghost-num hidden md:block" aria-hidden="true" style={{
+        <span className="ghost-num" aria-hidden="true" style={{
           top: "20px",
           right: "clamp(16px, 6vw, 100px)",
           fontSize: "clamp(160px, 22vw, 340px)",
@@ -150,22 +149,23 @@ export default function ExperiencePage() {
         </div>
       </header>
 
+      <div className="section-divider" style={{ margin: "0 clamp(32px, 8vw, 120px)" }} />
+
       {/* ── ACTS — each differently staged ── */}
       {acts.map((act, i) => {
         const isEven = i % 2 === 0;
         const isClimax = i === 2; // Act 03 — Pressure, the emotional turning point
         const climaxColor = "var(--accent-2)";
         return (
+          <div key={act.act}>
           <section
-            key={act.act}
             className="relative isolate"
             style={{
-              borderBottom: "1px solid var(--border)",
               background: isClimax ? "rgba(245, 166, 35, 0.03)" : "transparent",
             }}
           >
-            {/* Ghost act number — climax bleeds amber */}
-            <span className="ghost-num hidden lg:block" aria-hidden="true" style={{
+            {/* Ghost act number — climax bleeds amber, others recede */}
+            <span className={`ghost-num hidden lg:block${isClimax ? "" : " ghost-num--dim"}`} aria-hidden="true" style={{
               top: "12px",
               left: isEven ? "clamp(16px, 4vw, 60px)" : "auto",
               right: isEven ? "auto" : "clamp(16px, 4vw, 60px)",
@@ -175,7 +175,7 @@ export default function ExperiencePage() {
               {String(i + 1).padStart(2, "0")}
             </span>
 
-            <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-0">
+            <div className={`grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-0 ${isClimax ? "reveal--strong" : "reveal"}`}>
               {/* Act label column */}
               <div style={{
                 padding: isClimax
@@ -256,15 +256,16 @@ export default function ExperiencePage() {
               </div>
             </div>
           </section>
+          <div className="section-divider" style={{ margin: "0 clamp(32px, 8vw, 120px)" }} />
+          </div>
         );
       })}
 
       {/* ── ACT 05: IMPACT — wide full-bleed reflection ── */}
       <section className="relative isolate" style={{
-        borderBottom: "1px solid var(--border)",
         padding: "clamp(48px, 8vh, 96px) clamp(32px, 8vw, 120px)",
       }}>
-        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-8 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-8 lg:gap-16 reveal">
           <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
             <span className="font-mono" style={{ color: "var(--accent)", fontSize: "9px", letterSpacing: "0.1em" }}>
               ACT 05
@@ -304,12 +305,13 @@ export default function ExperiencePage() {
         </div>
       </section>
 
+      <div className="section-divider" style={{ margin: "0 clamp(32px, 8vw, 120px)" }} />
+
       {/* ── CLOSING: REFLECTION — a moment to breathe ── */}
       <section className="relative isolate" style={{
         padding: "clamp(48px, 8vh, 96px) clamp(32px, 8vw, 120px)",
-        borderBottom: "1px solid var(--border)",
       }}>
-        <div className="font-mono hud-frame" style={{
+        <div className="font-mono hud-frame reveal--strong" style={{
           fontSize: "clamp(13px, 1.8vw, 16px)",
           lineHeight: 2.2,
           padding: "24px 28px",
@@ -341,17 +343,19 @@ export default function ExperiencePage() {
         </p>
       </section>
 
+      <div className="section-divider" style={{ margin: "0 clamp(32px, 8vw, 120px)" }} />
+
       {/* ── TRANSITION ── */}
       <div style={{ padding: "clamp(28px, 4vh, 44px) clamp(32px, 8vw, 120px)" }}>
         <div className="flex items-center justify-between">
           <span className="font-mono" style={{ color: "var(--text-tertiary)", fontSize: "9px", letterSpacing: "0.08em" }}>
             CONTINUE
           </span>
-          <Link href="/work" className="group hud-frame flex items-center gap-3"
+          <Link href="/" className="group hud-frame flex items-center gap-3"
             style={{ padding: "10px 18px" }}>
             <span className="font-display font-bold"
               style={{ color: "var(--accent)", fontSize: "clamp(18px, 2.5vw, 28px)", letterSpacing: "-0.025em" }}>
-              See the work
+              Back to the start
             </span>
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" focusable="false"
               className="transition-transform duration-200 group-hover:translate-x-1">
