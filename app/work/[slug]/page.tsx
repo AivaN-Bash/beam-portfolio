@@ -67,7 +67,7 @@ export default async function WorkDetail({
             All work
           </Link>
           <div className="flex items-center gap-4">
-            <SignalBars level={project.signal as 1 | 2 | 3} color={project.accent} />
+            <SignalBars level={project.signal} color={project.accent} />
             <span className="font-mono" style={{ color: "var(--text-tertiary)", fontSize: "10px" }}>
               [{project.index} / {String(projects.length).padStart(2, "0")}]
             </span>

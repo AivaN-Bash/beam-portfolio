@@ -111,7 +111,7 @@ export default function WorkPage() {
                 style={{ color: featured.accent, background: `${featured.accent}15`, fontSize: "9px", letterSpacing: "0.05em" }}>
                 {featured.status}
               </span>
-              <SignalBars level={featured.signal as 1 | 2 | 3} color={featured.accent} />
+              <SignalBars level={featured.signal} color={featured.accent} />
             </div>
 
             <h2 className="font-display font-bold leading-none mb-3 transition-colors duration-200"
@@ -242,7 +242,7 @@ export default function WorkPage() {
                     style={{ fontSize: "9px", letterSpacing: "0.04em", color: project.accent, background: `${project.accent}15` }}>
                     {project.status}
                   </span>
-                  <SignalBars level={project.signal as 1 | 2 | 3} color={hoveredProject === project.id ? project.accent : "var(--text-tertiary)"} />
+                  <SignalBars level={project.signal} color={hoveredProject === project.id ? project.accent : "var(--text-tertiary)"} />
                 </div>
 
                 <div>

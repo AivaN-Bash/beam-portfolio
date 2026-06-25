@@ -323,7 +323,7 @@ export default function Home() {
                         {project.category}
                       </span>
                       <span className="flex items-center gap-2 flex-shrink-0" style={{ minWidth: "70px", justifyContent: "flex-end" }}>
-                        <SignalBars level={project.signal as 1 | 2 | 3} color={isActive ? project.accent : "var(--text-tertiary)"} />
+                        <SignalBars level={project.signal} color={isActive ? project.accent : "var(--text-tertiary)"} />
                         <span className="font-mono" style={{ color: "var(--text-tertiary)", fontSize: "10px" }}>
                           {project.year}
                         </span>

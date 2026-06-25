@@ -11,6 +11,14 @@ const navLinks = [
   { href: "/experience", label: "Experience", index: "04" },
 ];
 
+// Exact match for "/", otherwise match the segment exactly or as a path
+// prefix (so /work/[slug] still highlights "Work") without false-positives
+// on lookalike routes (e.g. a future /work-archive would NOT match /work).
+function isLinkActive(pathname: string, href: string): boolean {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
+
 export default function Nav() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
@@ -100,8 +108,8 @@ export default function Nav() {
           borderRadius: "2px",
           transition: "top 0.2s",
         }}
-        onFocus={(e) => { (e.currentTarget as HTMLElement).style.top = "16px"; }}
-        onBlur={(e) => { (e.currentTarget as HTMLElement).style.top = "-100px"; }}
+        onFocus={(e) => { e.currentTarget.style.top = "16px"; }}
+        onBlur={(e) => { e.currentTarget.style.top = "-100px"; }}
       >
         Skip to main content
       </a>
@@ -156,10 +164,7 @@ export default function Nav() {
         {/* Vertical nav — labeled links with dot + index */}
         <nav className="flex flex-col items-center gap-1" aria-label="Main navigation">
           {navLinks.map((link) => {
-            const isActive =
-              link.href === "/"
-                ? pathname === "/"
-                : pathname.startsWith(link.href);
+            const isActive = isLinkActive(pathname, link.href);
             return (
               <Link
                 key={link.href}
@@ -332,10 +337,7 @@ export default function Nav() {
         >
           <div style={{ padding: "8px 0 16px" }}>
             {navLinks.map((link) => {
-              const isActive =
-                link.href === "/"
-                  ? pathname === "/"
-                  : pathname.startsWith(link.href);
+              const isActive = isLinkActive(pathname, link.href);
               return (
                 <Link
                   key={link.href}

@@ -224,7 +224,7 @@ export default function ExperiencePage() {
                   {act.label}
                 </h2>
                 <p style={{
-                  color: isClimax ? "var(--text-primary)" : "var(--text-primary)",
+                  color: "var(--text-primary)",
                   fontSize: isClimax ? "clamp(17px, 2.2vw, 22px)" : "15px",
                   lineHeight: isClimax ? 1.85 : 1.8,
                   marginBottom: act.content.list ? "20px" : "0",

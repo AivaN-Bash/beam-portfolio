@@ -1,6 +1,26 @@
 export const CONTACT_EMAIL = "hello@beamfolio.dev";
 
-export const projects = [
+export interface Project {
+  id: string;
+  slug: string;
+  title: string;
+  year: string;
+  category: string;
+  status: string;
+  tagline: string;
+  problem: string;
+  solution: string;
+  decisions: string[];
+  stack: string[];
+  metrics: string[];
+  impact: string;
+  lessons: string;
+  accent: string;
+  index: string;
+  signal: 1 | 2 | 3;
+}
+
+export const projects: Project[] = [
   {
     id: "nexus",
     slug: "nexus",
