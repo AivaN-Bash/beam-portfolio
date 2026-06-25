@@ -33,7 +33,7 @@ body {
   color: var(--text-primary);
   font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
   line-height: 1.6;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 ::selection {
@@ -121,21 +121,6 @@ a.hud-frame:hover {
   --hs: 14px;
 }
 
-/* Grid-rows expand technique for hover-reveal detail layers */
-.hud-expand {
-  display: grid;
-  grid-template-rows: 0fr;
-  overflow: hidden;
-  transition: grid-template-rows 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.hud-expand.is-open {
-  grid-template-rows: 1fr;
-}
-
-.hud-expand > * {
-  min-height: 0;
-}
 
 /* ── Ghost numerals — oversized outline type used as a
    secondary focal point behind content. Always
@@ -264,7 +249,7 @@ a.hud-frame:hover {
   background: var(--surface);
   border: 1px solid var(--border-2);
   opacity: 1;
-  pointer-events: auto;
+  visibility: visible;
   cursor: pointer;
   font: inherit;
   color: inherit;
@@ -273,16 +258,16 @@ a.hud-frame:hover {
 @supports (animation-timeline: scroll()) {
   .back-to-top {
     opacity: 0;
-    pointer-events: none;
-    animation: appear-on-scroll linear;
+    visibility: hidden;
+    animation: appear-on-scroll linear both;
     animation-timeline: scroll(root);
     animation-range: 600px 900px;
   }
 }
 
 @keyframes appear-on-scroll {
-  from { opacity: 0; pointer-events: none; }
-  to { opacity: 1; pointer-events: auto; }
+  from { opacity: 0; visibility: hidden; }
+  to { opacity: 1; visibility: visible; }
 }
 
 /* ── Section divider ──
@@ -300,15 +285,6 @@ a.hud-frame:hover {
 .group:hover .nav-tooltip,
 .group:focus-visible .nav-tooltip {
   opacity: 1 !important;
-}
-
-/* ── Mobile content offset ──
-   Pages need top padding on mobile to clear the 56px header.
-   Applied via a utility class used in page bodies. */
-@media (max-width: 1023px) {
-  .mobile-pt {
-    padding-top: 56px;
-  }
 }
 
 /* Principle cells — ghost numeral smaller on mobile */
@@ -351,6 +327,6 @@ a.hud-frame:hover {
   .back-to-top {
     animation: none;
     opacity: 1;
-    pointer-events: auto;
+    visibility: visible;
   }
 }
